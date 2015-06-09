@@ -1,13 +1,13 @@
 <?php
 /* The base configurations of Free Help Desk.
 /** The name of the database - create this first*/
-define('db_name', 'freehelpdesk');
+define('db_name', 'fhdbased');
 
 /** MySQL database username */
-define('db_user', 'root');
+define('db_user', 'fhdbased');
 
 /** MySQL database password */
-define('db_password', 'sun123!!');
+define('db_password', 't3l05ab3s');
 
 /** MySQL hostname */
 define('db_host', 'localhost');
