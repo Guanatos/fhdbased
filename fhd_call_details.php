@@ -38,16 +38,16 @@ $site_calls = $db->get_row("SELECT call_id,call_first_name,call_last_name,call_p
 	$device_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_device);");
 	$call_staff = $site_calls->call_staff;
 	$staff_name = $db->get_var("SELECT user_name from site_users WHERE (user_id = $call_staff);");
-	$call_date = date("Y-m-d",($site_calls->call_date + (FHD_TIMEADJUST * 3600)));
+	$call_date = date("Y-m-d H:i",($site_calls->call_date + (FHD_TIMEADJUST * 3600)));
 	echo "<tr><td>Status</td><td>" . call_status($site_calls->call_status) . "</td></tr>\n";
 	echo "<tr><td>Date</td><td>" . $call_date . "</td></tr>\n";
 	if ($call_status ==1){
-		echo "<tr><td>Closed</td><td>" . date('Y-m-d',$site_calls->call_date2) . "</td></tr>\n";
+		echo "<tr><td>Closed</td><td>" . date('Y-m-d H:i',$site_calls->call_date2) . "</td></tr>\n";
 	}
+	echo "<tr><td>Priority</td><td>$request_name</td></tr>\n";
 	echo "<tr><td>Name</td><td>" . $site_calls->call_first_name . "</td></tr>\n";
 	echo "<tr><td>Email</td><td>".$site_calls->call_email."</td></tr>\n";
 	echo "<tr><td>Dept</td><td>$department_name</td></tr>\n";
-	echo "<tr><td>Request</td><td>$request_name</td></tr>\n";
 	echo "<tr><td>Device</td><td>$device_name</td></tr>\n";
 	echo "<tr><td>Details</td><td style='width: 500px;'>".$site_calls->call_details."</td></tr>\n";
 	echo "<tr><td>Solution</td><td style='width: 500px;'>".$site_calls->call_solution."</td></tr>\n";
@@ -90,8 +90,7 @@ if ($isnotes > 0){
 		$user_level_note = $db->get_var("select user_level from site_users where user_id = $note_post_user;");
 		$bg = ($user_level_note == 1) ? " class='usernote'" : "";
 		$site_notes = $note->note_id;
-//		$note_post_date = date("n/j/y g:i a",$note->note_post_date);
-		$note_post_date = date("n/j/y g:i a",($note->note_post_date + (FHD_TIMEADJUST * 3600)));
+		$note_post_date = date("Y-m-d H:i",($note->note_post_date + (FHD_TIMEADJUST * 3600)));
 		$note_title = $note->note_title;
 		$note_body = $note->note_body;
 		echo "<tr>\n";

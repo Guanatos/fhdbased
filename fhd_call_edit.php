@@ -182,7 +182,15 @@ $site_calls = $db->get_row("SELECT call_id,call_first_name,call_last_name,call_p
 	<tr><td><strong>Closed</strong></td></td>
 	<td><?php echo date('Y-m-d',$site_calls->call_date2);?><input type="hidden" name="call_date2" value="<?php echo date('Y-m-d',$site_calls->call_date2);?>"></td></tr>
 	<?php } ?>
-	
+
+        <tr><td>Priority</td><td><select name='call_request'>
+        <?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2");
+foreach ($request_name as $request )
+{?>
+        <option value='<?php echo $request->type_id;?>'<?php if($request->type_id == $call_request){echo ' selected';}?>><?php echo $request->type_name;?></option>
+<?php } ?>
+        </select></td></tr>
+
 	<tr><td>Name</td>
 	<td><input type="text" name="call_first_name" value="<?php echo $site_calls->call_first_name;?>" class="input-xlarge"> 
 	<small><?php echo $call_user;?></small>
@@ -199,14 +207,6 @@ $site_calls = $db->get_row("SELECT call_id,call_first_name,call_last_name,call_p
 foreach ($call_dept as $dept )
 {?>
 	<option value='<?php echo $dept->type_id;?>'<?php if($dept->type_id == $call_department){echo ' selected';}?>><?php echo $dept->type_name;?></option>
-<?php } ?>
-	</select></td></tr>
-
-	<tr><td>Request</td><td><select name='call_request'>
-	<?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2");
-foreach ($request_name as $request )
-{?>
-	<option value='<?php echo $request->type_id;?>'<?php if($request->type_id == $call_request){echo ' selected';}?>><?php echo $request->type_name;?></option>
 <?php } ?>
 	</select></td></tr>
 

@@ -61,7 +61,7 @@ if (isset($_POST['nacl'])){
 //</ADD>
 
 $nacl = md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;"));
-$adjdate=date('Y-m-d');
+$adjdate=date('Y-m-d H:i:s');
 ?>
 
 <h4><i class='fa fa-tag'></i> Add Ticket</h4>
@@ -82,7 +82,15 @@ $adjdate=date('Y-m-d');
 	<td><!-- mktime(hour, minute, second, month, day, year) -->
 	<input type="text" name="call_date" value="<?php echo $adjdate;?>" id="datepicker" class="input-small"></td>
 	</tr>		
-	
+
+        <tr><td>Priority</td><td><select name='call_request'>
+        <?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2 order by type_name;");
+foreach ($request_name as $request )
+{?>
+        <option value='<?php echo $request->type_id;?>'><?php echo $request->type_name;?></option>
+<?php } ?>
+        </select></td></tr>
+
 	<tr>
 	<td>Name</td>
 	<td><input type="text" name="call_first_name" class="input-xlarge" required></td>
@@ -103,14 +111,6 @@ $adjdate=date('Y-m-d');
 foreach ($call_dept as $dept )
 {?>
 	<option value='<?php echo $dept->type_id;?>'><?php echo $dept->type_name;?></option>
-<?php } ?>
-	</select></td></tr>
-
-	<tr><td>Request</td><td><select name='call_request'>
-	<?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2 order by type_name;");
-foreach ($request_name as $request )
-{?>
-	<option value='<?php echo $request->type_id;?>'><?php echo $request->type_name;?></option>
 <?php } ?>
 	</select></td></tr>
 

@@ -26,7 +26,7 @@ if(isset($_GET['user_id'])){
 	$colspan = 2;
 }
 
-$myquery = "SELECT call_id,call_date,call_first_name,call_last_name,call_request,call_department,call_device,call_staff from site_calls WHERE (call_status = 0) $queryadd order by call_id desc;";
+$myquery = "SELECT call_id,call_date,call_first_name,call_last_name,call_request,call_department,call_device,call_staff,call_status from site_calls WHERE (call_status = 0) $queryadd order by call_id desc;";
 $site_calls = $db->get_results($myquery);
 $num = $db->num_rows;
 //$db->debug();
@@ -36,24 +36,33 @@ if ($num > 0){
 <table class="<?php echo $table_style_1;?>" style='width: auto;'>
 <tr>
 	<th colspan="<?php echo $colspan;?>" style='text-align: center;'>Action</th>
-	<?php if($user_level <> 1){?>
-	<th>Name</th>
-	<?php } ?>
-	<th>Notes</th>
+	<th>Status</th>
 	<th>Date</th>
-	<th>Type</th>
+	<th>Priority</th>
+	<?php if($user_level <> 1){?>
+	<th>Customer</th>
+	<?php } ?>
 	<th>Dept</th>
 	<th>Device</th>
-	<th>Staff</th>
+	<th>Staff Assigned</th>
+	<th>Notes</th>
 </tr>
 <?php
 foreach ( $site_calls as $call )
 {
 	$call_id = $call->call_id;
-//	$call_date = date("n/j/y g:i a",$call->call_date);
-	$call_date = date("m/d/y",$call->call_date);
+	$call_date = date("Y-m-d H:i",$call->call_date);
 	$call_first_name  = $call->call_first_name;
 	$call_last_name  = $call->call_last_name;
+	$call_status = $call->call_status;
+	switch ($call_status) {
+		case 0:
+		$call_status="active";
+		break;
+		case 1:
+		$call_status="closed";
+		break;
+	}
 	$call_request = $call->call_request;
 	$call_department = $call->call_department;
 	$call_device = $call->call_device;
@@ -65,12 +74,13 @@ foreach ( $site_calls as $call )
 	$note_count = $db->get_var("SELECT count(note_id) from site_notes WHERE (note_relation = $call_id) and (note_type = 1);");
 	echo "<tr>\n<td style='text-align: center;'><a href='fhd_call_details.php?call_id=$call_id'><i class='fa fa-eye'></i></a></td>\n";
 
+
 	if($user_level <> 1){
-	echo "<td style='text-align: center;'><a href='fhd_call_edit.php?call_id=$call_id'><i class='fa fa-pencil-square-o' title='edit'></i></a><td>$call_first_name</td>\n</td>\n";
+	echo "<td style='text-align: center;'><a href='fhd_call_edit.php?call_id=$call_id'><i class='fa fa-pencil-square-o' title='edit'></i></a><td>$call_status</td>\n<td>$call_date</td>\n<td>$request_name</td>\n<td>$call_first_name</td>\n</td>\n";
 	}
 
-	echo "<td>$note_count</td>\n<td>$call_date</td>\n";
-	echo "<td>$request_name</td>\n<td>$department_name</td>\n<td>$device_name</td>\n<td>$call_staff</td\n</tr>\n";
+	echo "<td>$department_name</td>\n<td>$device_name</td>\n<td>$call_staff</td>\n";
+	echo "<td>$note_count</td>\n</tr>\n";
 }
 }
 ?>

@@ -13,7 +13,8 @@ define('db_password', 't3l05ab3s');
 define('db_host', 'localhost');
 
 /** adjust the time display in hours */
-define('FHD_TIMEADJUST', '+20');
+//define('FHD_TIMEADJUST', '+20');
+define('FHD_TIMEADJUST', '0');
 
 /** Set an AUTH KEY for security.*/
 define('AUTH_KEY','change this key');
