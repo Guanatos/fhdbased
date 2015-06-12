@@ -26,7 +26,7 @@ if(isset($_GET['user_id'])){
 	$colspan = 2;
 }
 
-$myquery = "SELECT call_id,call_date,call_first_name,call_last_name,call_request,call_department,call_device from site_calls WHERE (call_status = 0) $queryadd order by call_id desc;";
+$myquery = "SELECT call_id,call_date,call_first_name,call_last_name,call_request,call_department,call_device,call_staff from site_calls WHERE (call_status = 0) $queryadd order by call_id desc;";
 $site_calls = $db->get_results($myquery);
 $num = $db->num_rows;
 //$db->debug();
@@ -44,6 +44,7 @@ if ($num > 0){
 	<th>Type</th>
 	<th>Dept</th>
 	<th>Device</th>
+	<th>Staff</th>
 </tr>
 <?php
 foreach ( $site_calls as $call )
@@ -56,6 +57,8 @@ foreach ( $site_calls as $call )
 	$call_request = $call->call_request;
 	$call_department = $call->call_department;
 	$call_device = $call->call_device;
+	$call_staff = $call->call_staff;
+	$call_staff = $db->get_var("SELECT user_name from site_users WHERE (user_id = $call_staff);");
 	$request_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_request);");
 	$department_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_department);");
 	$device_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_device);");
@@ -67,7 +70,7 @@ foreach ( $site_calls as $call )
 	}
 
 	echo "<td>$note_count</td>\n<td>$call_date</td>\n";
-	echo "<td>$request_name</td>\n<td>$department_name</td>\n<td>$device_name</td>\n</tr>\n";
+	echo "<td>$request_name</td>\n<td>$department_name</td>\n<td>$device_name</td>\n<td>$call_staff</td\n</tr>\n";
 }
 }
 ?>
