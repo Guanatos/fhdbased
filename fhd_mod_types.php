@@ -24,11 +24,12 @@ if (isset($_POST['nacl'])){
 	//authentication verified, continue.
 	$type_id = checkid($_POST['type_id']);
 	$type_name = $db->escape($_POST['type_name']);
+	$type_desc = $db->escape($_POST['type_desc']);
 //	$type_email = $db->escape($_POST['type_email']);
 //	$type_location = $db->escape($_POST['type_location']);
 //	$type_phone = $db->escape($_POST['type_phone']);
 //	$db->query("UPDATE site_types SET type_name='$type_name',type_email='$type_email',type_location='$type_location',type_phone='$type_phone' WHERE type_id = $type_id;");
-	$db->query("UPDATE site_types SET type_name='$type_name' WHERE type_id = $type_id;");
+	$db->query("UPDATE site_types SET type_name='$type_name',type_desc='$type_desc' WHERE type_id = $type_id;");
     $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
     <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
     Updated.
@@ -53,7 +54,7 @@ $nacl = md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_
 <?php echo $actionstatus;?>
 
 <?php if ($num > 0) { 
-$site_types = $db->get_results("SELECT type_id,type,type_name,type_email,type_location,type_phone from site_types where type_id = $type_id order by type_name;");
+$site_types = $db->get_results("SELECT type_id,type,type_name,type_desc,type_email,type_location,type_phone from site_types where type_id = $type_id order by type_name;");
 echo "<form action='' method='post' class='form-horizontal'>\n";
 echo "<table class='$table_style_3' style='width: auto;'>\n<input type='hidden' name='nacl' value='$nacl'>\n<input type='hidden' name='type_id' value='$type_id'>\n";
 
@@ -62,25 +63,27 @@ foreach ( $site_types as $site_type )
 $type_id = $site_type->type_id;
 $type = $site_type->type;
 $type_name = $site_type->type_name;
+$type_desc = $site_type->type_desc;
 $type_email = $site_type->type_email;
 $type_location = $site_type->type_location;
 $type_phone = $site_type->type_phone;
-	if ($type <> 0) {
-		echo "<tr><td>Name</td><td><input type='text' name = 'type_name' value='$type_name'></td></tr>\n";
-		echo "<tr><td colspan='2'><input type='submit' class='btn btn-primary' value='update'></td></tr>\n";
-		echo "</table>\n</form>\n";
+	if ($type <> 0) { 
+	echo "<tr><td>Name</td><td><input type='text' name='type_name' value='$type_name'></td></tr>\n";
+	echo "<tr><td>Description</td><td><textarea name='type_desc'>$type_desc</textarea></td></tr>\n";
+	echo "<tr><td colspan='2'><input type='submit' value='add' class='btn btn-primary'></td></tr>\n";
+	echo "</table>\n</form>\n";
 	}
 
-		if ($type == 0) {
-		echo "<tr><td>Name</td><td><input type='text' name='type_name' value='$type_name'></td></tr>\n";
-		echo "<tr><td>Email</td><td><input type='text' name='type_email' value='$type_email'></td></tr>\n";
-		echo "<tr><td>Location</td><td><input type='text' name='type_location' value='$type_location'></td></tr>\n";
-		echo "<tr><td>Phone</td><td><input type='text' name='type_phone' value='$type_phone'></td></tr>\n";
-		echo "<tr><td colspan='2'><input type='submit' name='' value='update'></td></tr>\n";
-		echo "</table>\n</form>\n";
+	if ($type == 0) { 
+	echo "<tr><td>Name</td><td><input type='text' name='type_name' value='$type_name'></td></tr>\n";
+	echo "<tr><td>Description</td><td><textarea name='type_desc'>$type_desc</textarea></td></tr>\n";
+	echo "<tr><td>Email</td><td><input type='text' name='type_email' value='$type_email'></td></tr>\n";
+	echo "<tr><td>Location</td><td><input type='text' name='type_location' value='$type_location'></td></tr>\n";
+	echo "<tr><td>Phone</td><td><input type='text' name='type_phone' value='$type_phone'></td></tr>\n";
+	echo "<tr><td colspan='2'><input type='submit' name='' value='update'></td></tr>\n";
+	echo "</table>\n</form>\n";
 	}
 }
-
 } 
 ?>
 <h5><i class="fa fa-arrow-left"></i> <a href="fhd_settings_action.php?type=<?php echo $type;?>">Back to <?php echo show_type_name($type);?></a></h5>

@@ -23,10 +23,11 @@ if (isset($_POST['nacl'])){
 	//authentication verified, continue.
 	$type = checkid($_POST['type']);
 	$type_name = $db->escape($_POST['type_name']);
+	$type_desc = $db->escape($_POST['type_desc']);
 	$type_email = $db->escape($_POST['type_email']);
 	$type_location = $db->escape($_POST['type_location']);
 	$type_phone = $db->escape($_POST['type_phone']);
-	$db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES( $type,'$type_name','$type_email','$type_location','$type_phone');");
+	$db->query("INSERT INTO site_types(type,type_name,type_desc,type_email,type_location,type_phone) VALUES( $type,'$type_name','$type_desc','$type_email','$type_location','$type_phone');");
 	header("Location: fhd_settings_action.php?type=$type");
  }else{
 	//not verified, warning and exit!
@@ -49,12 +50,14 @@ $nacl = md5(AUTH_KEY.$db->get_var("select user_password from site_users where us
 <input type='hidden' name='type' value='<?php echo $type;?>'>
 <?php
 if ($type <> 0) { ?>
-	<tr><td>Name: </td><td><input type='text' name='type_name'></td></tr>
+	<tr><td>Name</td><td><input type='text' name='type_name'></td></tr>
+	<tr><td>Description</td><td><textarea rows="4" cols="50" name='type_desc'></textarea></td></tr>
 	<tr><td colspan='2'><input type='submit' value='add' class='btn btn-primary'></td></tr>
 	</table>
 <?php  }
 if ($type == 0) { ?>
 	<tr><td>Name</td><td><input type='text' name='type_name'></td></tr>
+	<tr><td>Description</td><td><textarea rows="4" cols="50" name='type_desc'></textarea></td></tr>
 	<tr><td>Email</td><td><input type='text' name='type_email'></td></tr>
 	<tr><td>Location</td><td><input type='text' name='type_location'></td></tr>
 	<tr><td>Phone</td><td><input type='text' name='type_phone'></td></tr>

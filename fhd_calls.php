@@ -37,7 +37,7 @@ if ($num > 0){
 <tr>
 	<th colspan="<?php echo $colspan;?>" style='text-align: center;'>Action</th>
 	<th>Status</th>
-	<th>Date</th>
+	<th>Creation Date</th>
 	<th>Priority</th>
 	<?php if($user_level <> 1){?>
 	<th>Customer</th>

@@ -175,7 +175,7 @@ switch ($type) {
         echo "Departments";
 		break;
     case 2:
-        echo "Request Type";
+        echo "Priorities";
 		break;
     case 3:
         echo "Device Type";
