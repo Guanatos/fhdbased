@@ -89,9 +89,6 @@ if (isset ( $_SESSION['hit'] ) ) {
 	}
 }
 ?>
-
-<h2><?php echo FHD_TITLE;?></h2>
-
 <?php
 if ( isset ($_GET['loggedout']) ) {
 echo "<div class=\"alert alert-success\" style=\"max-width: 350px; text-align: center;\"><strong>Logged Out</strong><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button></div>";
@@ -105,6 +102,30 @@ if (ALLOW_ANY_ADD == 'yes') {
 	echo "<p>or Login</p>";
 }
 ?>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Hire <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Work</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <form action="fhd_login.php" method="post" class="form-horizontal" role="form">
 
