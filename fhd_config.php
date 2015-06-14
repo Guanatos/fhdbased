@@ -29,7 +29,7 @@ define('FROM_EMAIL','postmaster@example.com');
 define('TO_EMAIL','postmaster@example.com');
 
 /** Allow registrations yes or no */
-define('ALLOW_REGISTER','no');
+define('ALLOW_REGISTER','yes');
 
 /** Use CAPTCHA with registration? yes or no */
 define('CAPTCHA_REGISTER','yes');
