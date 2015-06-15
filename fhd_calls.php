@@ -33,19 +33,19 @@ $num = $db->num_rows;
 echo "<h4><i class='fa fa-tags'></i> &nbsp; Open Tickets <small>[ $num ]</small></h4>";
 if ($num > 0){
 ?>
-<table class="<?php echo $table_style_1;?>" style='width: auto;'>
+<table class="<?php echo $table_style_1;?>" style='width: 100%;'>
 <tr>
 	<th colspan="<?php echo $colspan;?>" style='text-align: center;'>Action</th>
-	<th>Status</th>
-	<th>Creation Date</th>
-	<th>Priority</th>
+	<th style='text-align: center;'>Status</th>
+	<th style='text-align: center;'>Creation Date</th>
+	<th style='text-align: center;'>Priority</th>
 	<?php if($user_level <> 1){?>
-	<th>Customer</th>
+	<th style='text-align: center;'>Customer</th>
 	<?php } ?>
-	<th>Dept</th>
-	<th>Device</th>
-	<th>Staff Assigned</th>
-	<th>Notes</th>
+	<th style='text-align: center;'>Departments</th>
+	<th style='text-align: center;'>Device</th>
+	<th style='text-align: center;'>Staff Assigned</th>
+	<th style='text-align: center;'>Notes</th>
 </tr>
 <?php
 foreach ( $site_calls as $call )
@@ -55,13 +55,8 @@ foreach ( $site_calls as $call )
 	$call_first_name  = $call->call_first_name;
 	$call_last_name  = $call->call_last_name;
 	$call_status = $call->call_status;
-	switch ($call_status) {
-		case 0:
-		$call_status="active";
-		break;
-		case 1:
-		$call_status="closed";
-		break;
+	if ($call_status == 0) {
+		$call_status="Active";
 	}
 	$call_request = $call->call_request;
 	$call_department = $call->call_department;
