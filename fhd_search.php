@@ -63,15 +63,16 @@ if ($num > 0){
 //<RESULTS>
 echo "<h4><small>[ ".$num." ] found</small></h4>";
 ?>
-<table class="<?php echo $table_style_3;?>" style='width: auto;'>
+<table class="<?php echo $table_style_3;?>" style='width: 100%;'>
 <tr>
 	<th colspan="<?php echo $colspan;?>" style='text-align: center;'>Action</th>
-	<th>Status</th>
-	<th>Date</td>
-	<th>Name</th>
-	<th>Type</th>
-	<th>Dept</th>
-	<th>Device</th>
+	<th style='text-align: center;'>Status</th>
+	<th style='text-align: center;'>Creation Date</td>
+	<th style='text-align: center;'>Priority</th>
+	<th style='text-align: center;'>Customer</th>
+	<th style='text-align: center;'>Departments</th>
+	<th style='text-align: center;'>Device</th>
+        <th style='text-align: center;'>Staff Assigned</th>
 </tr>
 <?php
 foreach ( $site_calls as $call )
@@ -79,12 +80,14 @@ foreach ( $site_calls as $call )
 	$call_status = $call->call_status;
 	$call_id = $call->call_id;
 	//$call_date = date("Y-m-d",$call->call_date);
-	$call_date = date("m/d/y",$call->call_date);
+	$call_date = date("Y-m-d H:i",$call->call_date);
+	$call_request = $call->call_request;
 	$call_first_name  = $call->call_first_name;
 	$call_last_name  = $call->call_last_name;
-	$call_request = $call->call_request;
 	$call_department = $call->call_department;
 	$call_device = $call->call_device;
+        $call_staff = $call->call_staff;
+        $call_staff = $db->get_var("SELECT user_name from site_users WHERE (user_id = $call_staff);");
 	$request_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_request);");
 	$department_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_department);");
 	$device_name = $db->get_var("SELECT type_name from site_types WHERE (type_id = $call_device);");
@@ -101,7 +104,9 @@ if($user_level <> 1){
 	echo "<td style='text-align: center;'><a href='fhd_call_edit.php?call_id=$call_id'><i class='fa fa-pencil-square-o' title='edit'></i></a></td>\n";
 	}
 
-	echo "<td>".call_status($call_status)."</td></td><td>$call_date</td>\n<td>$call_first_name $call_last_name</td>\n<td>$request_name</td>\n<td>$department_name</td>\n<td>$device_name</td>\n</tr>\n";
+	echo "<td>".call_status($call_status)."</td><td>$call_date</td>\n<td>$request_name</td>\n";
+	echo "<td>$call_first_name $call_last_name</td>\n<td>$department_name</td>\n";
+	echo "<td>$device_name</td>\n<td>$call_staff</tr>\n";
 }
 ?>
 </table>
@@ -129,6 +134,15 @@ if($user_level <> 1){
 	<tr>
 	<td>To Date</td>
 	<td><input type="text" name="call_date2" id="datepicker2" class="input-small"></td></tr>		
+
+        <tr><td>Priority</td><td><select name='call_request'>
+        <option value="">Choose</option>
+        <?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2 order by type_name;");
+foreach ($request_name as $request )
+{?>
+        <option value='<?php echo $request->type_id;?>'><?php echo $request->type_name;?></option>
+<?php } ?>
+        </select></td></tr>
 	
 	<tr><td>Name</td>
 	<td><input type="text" name="call_first_name" class="input-xlarge"></td></tr>
@@ -139,21 +153,12 @@ if($user_level <> 1){
 	<tr><td>Phone</td>
 	<td><input type="text" name="call_phone" class="input-medium"></td></tr>
 
-	<tr><td>Dept</td><td><select name='call_department'>
+	<tr><td>Departments</td><td><select name='call_department'>
 	<option value="">Choose</option>
 	<?php $call_dept = $db->get_results("select type_id,type_name from site_types where type=1 order by type_name;");
 foreach ($call_dept as $dept )
 {?>
 	<option value='<?php echo $dept->type_id;?>'><?php echo $dept->type_name;?></option>
-<?php } ?>
-	</select></td></tr>
-
-	<tr><td>Request</td><td><select name='call_request'>
-	<option value="">Choose</option>
-	<?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2 order by type_name;");
-foreach ($request_name as $request )
-{?>
-	<option value='<?php echo $request->type_id;?>'><?php echo $request->type_name;?></option>
 <?php } ?>
 	</select></td></tr>
 

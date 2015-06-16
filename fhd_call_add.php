@@ -106,7 +106,7 @@ foreach ($request_name as $request )
 	<td><input type="text" name="call_phone" class="input-medium"></td>
 	</tr>
 
-	<tr><td>Department</td><td><select name='call_department'>
+	<tr><td>Departments</td><td><select name='call_department'>
 	<?php $call_dept = $db->get_results("select type_id,type_name from site_types where type=1 order by type_name;");
 foreach ($call_dept as $dept )
 {?>
