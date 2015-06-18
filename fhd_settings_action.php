@@ -19,13 +19,13 @@ $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 
 //<DELETE>
 if (isset($_GET['nacl'])){
- if ( $_GET['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
+ if ( $_GET['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
 	$type_id = checkid($_GET['type_id']);
 	$action = $db->escape( $_GET['action'] );
 	$type = checkid($_GET['type']);
 	if ($action == 'delete'){
-		$db->query("DELETE FROM site_types where type_id = $type_id;");
+		$db->query("DELETE FROM site_types WHERE type_id = $type_id;");
 		header("Location: fhd_settings_action.php?type=$type");
 		}
  }
