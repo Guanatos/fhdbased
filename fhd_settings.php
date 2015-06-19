@@ -30,7 +30,8 @@ $fhddate = date_format($date, 'U')
 
 <a href="fhd_settings_action.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a> 
 <a href="fhd_settings_action.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a> 
-<a href="fhd_settings_action.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Device Type</a> 
+<a href="fhd_settings_action.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a> 
+<a href="skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Skills</a> 
 <a href="fhd_users.php?support_staff=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Support Staff</a>
 
 <hr>

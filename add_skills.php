@@ -38,7 +38,10 @@ $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_
 ?>
 
 <h4>Add Skills</h4>
-<?php echo $actionstatus;?>
+<?php 
+echo $actionstatus;
+echo "<p><a href='fhd_settings.php'>Settings</a></p>";
+?>
 
 <form action="add_skills.php" method="post" class="form-horizontal" data-parsley-validate>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>

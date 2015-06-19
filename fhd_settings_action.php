@@ -1,4 +1,5 @@
 <?php
+// fhd_settings_action.php
 ob_start();
 include("includes/session.php");
 include("includes/checksession.php");
@@ -65,8 +66,8 @@ if ($num == 0) {
 	<?php } ?>
 </tr>
 <?php
-$nacl = md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;"));
-$site_types = $db->get_results("SELECT type_id,type,type_name,type_email,type_location,type_phone from site_types where type = $type order by type_name;");
+$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
+$site_types = $db->get_results("SELECT type_id,type,type_name,type_email,type_location,type_phone FROM site_types WHERE type = $type ORDER BY type_name;");
 foreach ( $site_types as $site_type )
 {
 $type_id = $site_type->type_id;
@@ -76,7 +77,7 @@ $type_email = $site_type->type_email;
 $type_location = $site_type->type_location;
 $type_phone = $site_type->type_phone;
 $col_name = show_type_col($type);
-$count = $db->get_var("select count(call_id) from site_calls where $col_name = $type_id;");
+$count = $db->get_var("SELECT count(call_id) FROM site_calls WHERE $col_name = $type_id;");
 if ($count == 0){
 	//if there are no calls, then the category can be removed.
 	$deletelink = "<a href='fhd_settings_action.php?type_id=$type_id&type=$type&action=delete&nacl=$nacl' onclick=\"return confirm('Are you sure you want to delete?')\"><i class='glyphicon glyphicon-remove-circle' title='delete'></i></a>";
@@ -107,3 +108,4 @@ if(isset($_SESSION['name'])){
 	echo "<br /><p><strong>Login Name:</strong> " . $_SESSION['name'] . "</p>";
 }
 include("includes/footer.php");
+?>

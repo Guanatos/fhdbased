@@ -6,7 +6,7 @@ include("includes/checksessionadmin.php");
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit Types</title>
+	<title>Edit Skills</title>
 <?php
 include("fhd_config.php");
 include("includes/header.php");
@@ -20,38 +20,29 @@ $actionstatus = "";
 // <UPDATE>
 //to do: need to check for duplicates...
 if (isset($_POST['nacl'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
+ if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
-	$type_id = checkid($_POST['type_id']);
-	$type_name = $db->escape($_POST['type_name']);
-	$type_desc = $db->escape($_POST['type_desc']);
-//	$type_email = $db->escape($_POST['type_email']);
-//	$type_location = $db->escape($_POST['type_location']);
-//	$type_phone = $db->escape($_POST['type_phone']);
-//	$db->query("UPDATE site_types SET type_name='$type_name',type_email='$type_email',type_location='$type_location',type_phone='$type_phone' WHERE type_id = $type_id;");
-	$db->query("UPDATE site_types SET type_name='$type_name',type_desc='$type_desc' WHERE type_id = $type_id;");
-    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
-    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-    Updated.
-    </div>";
- }
+
+        $skill_name = $db->escape($_POST['skill_name']);
+        $skill_desc = $db->escape($_POST['skill_desc']);
+
+	$db->query("UPDATE skills SET skill_name='$skill_name',skill_desc='$skill_desc' WHERE skill_id = $skill_id;");
+    	$actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
+    	<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+    	Updated.
+    	</div>";
+ } // if
 }
 // </UPDATE>
 
-//check type variable
-$type_id = checkid($_GET['id']);
-$num = $db->get_var("select count(type_id) from site_types where type_id = $type_id;");
-
-if ($num == 0) {
-	echo "<p>Type does not exist (error 2)</p>";
-	include("includes/footer.php");
-	exit;
-}
-$nacl = md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;"));
+$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 ?>
 
 <h4>Edit Type</h4>
-<?php echo $actionstatus;?>
+<?php 
+echo $actionstatus;
+echo "<p><a href='fhd_settings.php'>Settings</a></p>";
+?>
 
 <?php if ($num > 0) { 
 $site_types = $db->get_results("SELECT type_id,type,type_name,type_desc,type_email,type_location,type_phone from site_types where type_id = $type_id order by type_name;");
