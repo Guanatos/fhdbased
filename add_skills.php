@@ -24,13 +24,23 @@ if (isset($_POST['nacl'])){
 
 	$skill_name = $db->escape($_POST['skill_name']);
 	$skill_desc = $db->escape($_POST['skill_desc']);
+
+	if (ifexist('skills','skill_name',$skill_name) == FALSE ){
+		echo "Not found, continue";	
 	$db->query("INSERT INTO skills(skill_name, skill_desc) VALUES('$skill_name','$skill_desc');");
-//$db->debug();
+
         $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
-    <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-    Skill Added.
-    </div>";
- }
+    	<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+    	Skill Added.
+    	</div>";
+	} else {
+		echo "Record duplicated";
+        $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
+    	<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+    	Skill Duplicated.
+    	</div>";
+	}
+   }
 }
 //</ADD>
 

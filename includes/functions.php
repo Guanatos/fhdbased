@@ -1,4 +1,24 @@
 <?php
+// This is a boolean function to identify duplicates
+// There are 3 parameters, table, field and value
+//
+function ifexist($table, $field, $id) {
+	echo "$table\n";
+	echo "$field\n";
+	echo "$id\n";
+	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
+	$value = $db->get_var("SELECT count($field) FROM $table WHERE $field = $id");
+	if ($value > 0) {
+		echo "$value\n";
+		echo "<function> Record duplicate";
+		return TRUE;
+	} else {
+		echo "$value\n";
+		echo "<function> Not found, continue";
+		return FALSE;
+	}
+}
+
 function checkid($id) {
 	if(!is_numeric($id)){
 		echo "<p>Invalid ID</p>";
@@ -15,7 +35,7 @@ if(!is_numeric($id)){
 }else{
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 	$id = $db->escape($id);
-	$v = $db->get_var("SELECT count(user_id) from site_users where user_id = $id;");
+	$v = $db->get_var("SELECT count(user_id) FROM site_users WHERE user_id = $id;");
 		if ($v == 1) {
 			return $id;
 		}else{
