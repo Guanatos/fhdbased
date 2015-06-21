@@ -1,22 +1,20 @@
 <?php
 // This is a boolean function to identify duplicates
 // There are 3 parameters, table, field and value
-//
 function ifexist($table, $field, $id) {
-	echo "$table\n";
-	echo "$field\n";
-	echo "$id\n";
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-	$value = $db->get_var("SELECT count($field) FROM $table WHERE $field = $id");
-	if ($value > 0) {
-		echo "$value\n";
-		echo "<function> Record duplicate";
-		return TRUE;
-	} else {
-		echo "$value\n";
-		echo "<function> Not found, continue";
-		return FALSE;
-	}
+	$var = $db->get_var("SELECT count($field) FROM $table WHERE $field LIKE '$id'");
+// $db->debug();
+	return $var;
+}
+// This is a boolean function to identify duplicates
+// There are 3 parameters, table, field and value
+// type and type_name
+function ifexist2($table, $field1, $field2, $id1, $id2) {
+        $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
+        $var = $db->get_var("SELECT count($field2) FROM $table WHERE $field1 LIKE '$id1' AND $field2 LIKE '$id2'");
+// $db->debug();
+        return $var;
 }
 
 function checkid($id) {

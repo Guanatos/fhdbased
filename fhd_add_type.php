@@ -16,10 +16,9 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-
 // <ADD>
 if (isset($_POST['nacl'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select user_password from site_users where user_id = $user_id;")) ) {
+ if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT user_password FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
 	$type = checkid($_POST['type']);
 	$type_name = $db->escape($_POST['type_name']);
@@ -27,7 +26,21 @@ if (isset($_POST['nacl'])){
 	$type_email = $db->escape($_POST['type_email']);
 	$type_location = $db->escape($_POST['type_location']);
 	$type_phone = $db->escape($_POST['type_phone']);
-	$db->query("INSERT INTO site_types(type,type_name,type_desc,type_email,type_location,type_phone) VALUES( $type,'$type_name','$type_desc','$type_email','$type_location','$type_phone');");
+	if (ifexist2('site_types','type','type_name',$type,$type_name)){
+// Record Found
+        	$actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
+        	<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+        	Record duplicated, nothing was changed.
+        	</div>";
+	} else {
+// Record Not Found
+		$db->query("INSERT INTO site_types(type,type_name,type_desc,type_email,type_location,type_phone) VALUES( $type,'$type_name','$type_desc','$type_email','$type_location','$type_phone');");
+	        $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
+        	<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+        	Skill Added.
+        	</div>";
+	}
+	echo $actionstatus;
 	header("Location: fhd_settings_action.php?type=$type");
  }else{
 	//not verified, warning and exit!
@@ -41,9 +54,7 @@ if (isset($_POST['nacl'])){
 $type = checkid($_GET['type']);
 $nacl = md5(AUTH_KEY.$db->get_var("select user_password from site_users where user_id = $user_id;"));
 ?>
-
 <h4>Add: <?php show_type_name($type);?></h4>
-
 <table class="<?php echo $table_style_3;?>" style='width: auto;'>
 <form action="fhd_add_type.php" method="post" class="form-horizontal">
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
@@ -66,8 +77,7 @@ if ($type == 0) { ?>
 <?php }?>
 </form>
 </table>
-<h5><i class="fa fa-arrow-left"></i> <a href="fhd_settings_action.php?type=<?php echo $type;?>">Back to <?php echo show_type_name($type);?></a></h5>
-
+<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings_action.php?type=<?php echo $type;?>">Back to <?php echo show_type_name($type);?></a></h5>
 <?php
 if(isset($_SESSION['name'])){
 	
