@@ -53,12 +53,11 @@ echo "<p><a href='skills.php?skill=show'>Skills</a></p>";
 	<tr><td>Skill Name*</td>
 	<td><input type="text" name="skill_name" required></td></tr>
 	<tr><td>Description*</td>
-	<td><input type="text" name="skill_desc" required></td></tr>
+	<td><textarea rows="2" name="skill_desc" required></textarea></td>
 </table>
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
 <input type="submit" value="Add Skill" class="btn btn-primary">
 </form>
-
 <?php
 if(isset($_SESSION['name'])){
 	echo "<p><strong>Name:</strong> " . $_SESSION['name'] . "</p>";
