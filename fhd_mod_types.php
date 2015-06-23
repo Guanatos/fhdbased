@@ -16,11 +16,10 @@ include("includes/ez_sql_mysqli.php");
 include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
-
 // <UPDATE>
 //to do: need to check for duplicates...
 if (isset($_POST['nacl'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
+ if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
 	$type_id = checkid($_POST['type_id']);
 	$type_name = $db->escape($_POST['type_name']);
