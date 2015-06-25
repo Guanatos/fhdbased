@@ -46,7 +46,6 @@ $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_
 <?php 
 echo $actionstatus;
 echo "<p><a href='fhd_settings.php'>Settings</a></p>";
-echo "<p><a href='skills.php?skill=show'>Skills</a></p>";
 ?>
 <form action="add_skills.php" method="post" class="form-horizontal" data-parsley-validate>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
@@ -58,6 +57,7 @@ echo "<p><a href='skills.php?skill=show'>Skills</a></p>";
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
 <input type="submit" value="Add Skill" class="btn btn-primary">
 </form>
+<h5><i class="fa fa-arrow-left"></i><a href="skills.php?skill=show">Back to Skills</a></h5>
 <?php
 if(isset($_SESSION['name'])){
 	echo "<p><strong>Name:</strong> " . $_SESSION['name'] . "</p>";
