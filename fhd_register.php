@@ -23,6 +23,9 @@ if (ALLOW_REGISTER <> "yes"){
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
 <form action="fhd_register_action.php" method="post" class="form-horizontal">
 <tr>
+	<td><input name="optionsRadios" id="optionsRadios1" value="1" checked="" type="radio"> Do you need a job to get done?</td>
+	<td><input name="optionsRadios" id="optionsRadios2" value="2" type="radio"> Do you need a job?</td>
+</tr>
 	<td>your name:</td>
 	<td><input type="text" name="name" id="name"></td>
 </tr>

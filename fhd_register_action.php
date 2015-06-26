@@ -44,7 +44,7 @@ if( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 
 if ($email) {
 	//check if email already exists.
-	$num = $db->get_var("select count(user_email) from site_users where user_email = '$email';");
+	$num = $db->get_var("SELECT count(user_email) FROM site_users WHERE user_email = '$email';");
 		if ($num > 0) {
 			echo "<div class=\"alert alert-danger\" style=\"max-width: 350px;\">That email address has already registered.</div>";
 			include("includes/footer.php");
@@ -102,10 +102,13 @@ if (REGISTER_APPROVAL == "yes"){
 	$user_pending = 0;
 }
 
+// User or Staff?
+$user_level = $_POST['optionsRadios'];
+
 //user_msg_send
 $user_msg_send = 1;
 
-$query = "INSERT into site_users(user_login,user_email,user_name,user_password,last_ip,user_status,user_level,user_pending,user_msg_send)VALUES('$login','$email','$name','$user_password','$ip',1,1,$user_pending,$user_msg_send);";
+$query = "INSERT into site_users(user_login,user_email,user_name,user_password,last_ip,user_status,user_level,user_pending,user_msg_send)VALUES('$login','$email','$name','$user_password','$ip',1,$user_level,$user_pending,$user_msg_send);";
 $db->query($query);
 //notify admin
 $from	 = FROM_EMAIL;
