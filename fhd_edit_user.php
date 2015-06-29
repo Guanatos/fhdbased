@@ -20,7 +20,7 @@ $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
 //<UPDATE>
 if (isset($_POST['update'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
+ if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
 	$url_user_id = valid_user($_POST['url_user_id']);
 	$user_date = date(time());
@@ -78,19 +78,19 @@ if (isset($_REQUEST['url_user_id'])){
 	$user_protect_edit = $site_users->user_protect_edit;
 	$user_pending = $site_users->user_pending;
 }
-$nacl = md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;"));
+$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 echo $actionstatus;?>
 
 <p><a href="fhd_users.php">Users</a></p>
 
 <form action="fhd_edit_user.php" method="post" class="form-horizontal">
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
+        <tr><td>ID </td>
+        <td><?php echo $url_user_id;?></td></tr>
 	<tr><td>User Login </td>
 	<td><input type="text" name="user_login" value="<?php echo $site_users->user_login;?>"</td></td></tr>
-	
 	<tr><td>Password</td>
 	<td><input type="text" name="user_password"></td></tr>
-
 	<tr><td>User Level</td>
 	<td><select name="user_level">
 	<option selected value="<?php echo $site_users->user_level;?>"><?php echo show_user_level($site_users->user_level);?></option>
@@ -123,13 +123,26 @@ echo $actionstatus;?>
 	<tr><td>Country</td>
 	<td><input type="text" name="user_country" value="<?php echo $site_users->user_country;?>" size="20"></td></tr>
 
-	<tr><td>ID </td>
-	<td><?php echo $url_user_id;?></td></tr>
-
 	<tr><td colspan="2"><input type="checkbox" name="user_pending" value="1" <?php if($user_pending == 1){echo " CHECKED";}?>> User pending?</td></tr>
 	<tr><td colspan="2"><input type="checkbox" name="user_msg_send" value="1" <?php if($user_msg_send == 1){echo " CHECKED";}?>> Receive ticket status emails?</td></tr>
 	<tr><td colspan="2"><input type="checkbox" name="user_protect_edit" value="1" <?php if($user_protect_edit == 1){echo " CHECKED";}?>> Lock from user edit?</td></tr>
-
+<tr><td>
+<label for="select" class="col-lg-2 control-label">Selects</label>
+        <select multiple="" class="form-control">
+<?php
+$myquery = "SELECT skill_name FROM skills ORDER BY skill_name;";
+$skills = $db->get_results($myquery);
+$num = $db->num_rows;
+if ($num >= 0){ // if there are records, show them
+	foreach ( $skills as $skill ) {
+		$skill_name = $skill->skill_name;
+		echo "<option>$skill_name</option>";
+	} // foreach
+} // if
+// $db->debug();
+?>
+        </select>
+</td></tr>
 </table>
 <input type='hidden' name='url_user_id' value='<?php echo $url_user_id;?>'>
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
