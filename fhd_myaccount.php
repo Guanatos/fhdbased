@@ -30,7 +30,6 @@ if ($user_protect_edit == 1){
 	include("includes/footer.php");
 	exit;
 }
-
 //<UPDATE>
 if (isset($_POST['update'])){
  if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
@@ -158,7 +157,26 @@ $user_msg_send = $site_users->user_msg_send;
 	<input type="text" class="form-control" name="user_country" id="user_country" value="<?php echo $site_users->user_country;?>">
 	</div>
 </div>
-
+<?php
+if ($user_level == 2){
+// Only staff members can select their skills
+	echo "<div class='form-group' style='width: 400px'>";
+	echo "<label for='select' class='col-lg-2 control-label' style='width: 400px'>Available Skills</label>";
+        echo "<select name='skills' multiple class='form-control' size=5>";
+	$myquery = "SELECT skill_name FROM skills ORDER BY skill_name;";
+	$skills = $db->get_results($myquery);
+	$num = $db->num_rows;
+	if ($num >= 0){ // if there are records, show them
+		foreach ( $skills as $skill ) {
+			$skill_name = $skill->skill_name;
+			echo "<option>$skill_name</option>";
+		} // foreach
+	} // if
+// $db->debug();
+        echo "</select>";
+	echo "</div>";
+} // if user_level
+?>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <input type="submit" value="update" class="btn btn-primary btn-lg">

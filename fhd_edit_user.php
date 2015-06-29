@@ -136,16 +136,11 @@ $num = $db->num_rows;
 if ($num >= 0){ // if there are records, show them
 	foreach ( $skills as $skill ) {
 		$skill_name = $skill->skill_name;
+		echo "<option>$skill_name</option>";
 	} // foreach
 } // if
-
 // $db->debug();
 ?>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
         </select>
 </td></tr>
 </table>
