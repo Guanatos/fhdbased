@@ -159,39 +159,38 @@ $user_msg_send = $site_users->user_msg_send;
 	<input type="text" class="form-control" name="user_country" id="user_country" value="<?php echo $site_users->user_country;?>">
 	</div>
 </div>
-
 <?php
 if ($user_level == 2){
 // Only staff members can select their skills
-    	echo "<div class='form-group'>";
-	echo "<label for='select' class='col-lg-2 control-label'>Available Skills</label>";
-	echo "<div class='col-lg-10'>";
-        echo "<div style=’clear:both;’></div>";
-        echo "<select class='form-control' name='skills_left' id='skills_left' multiple='multiple' size=5>";
+    	echo '<div class="form-group">';
+	echo '<label for="select" class="col-lg-2 control-label">Available Skills</label>';
+	echo '<div class="col-lg-10">';
+        echo '<div style="clear:both;"></div>';
+        echo '<select class="form-control" name="skills_left" id="skills_left" multiple="multiple" size=5>';
 	$myquery = "SELECT skill_name FROM skills ORDER BY skill_name;";
 	$skills = $db->get_results($myquery);
 	$num = $db->num_rows;
 	if ($num >= 0){ // if there are records, show them
 		foreach ( $skills as $skill ) {
 			$skill_name = $skill->skill_name;
-			echo "<option value='{$skill_name}'>$skill_name</option>";
+			echo "<option value='$skill_name'>$skill_name</option>";
 		} // foreach
 	} // if
-        echo "</select>";
-	echo "</div>";
-    	echo "<div class='form-group'>";
-	echo "<div class='col-lg-10 col-lg-offset-2'>";
-        echo "<div style=’clear:both;’></div>";
-        echo "<button type='button' onclick='move( ‘location_left’, ‘location_right’ )'> > </button><br>";
-        echo "<button type='button' onclick='move( ‘location_right’, ‘location_left’ )'> < </button>"; 
-	echo "</div><br>";
-    	echo "<div class='form-group'>";
-	echo "<label for='select' class='col-lg-2 control-label'>Selected Skills</label>";
-	echo "<div class='col-lg-10'>";
-        echo "<div style=’clear:both;’></div>";
-        echo "<select class='form-control' name='skills_right' id='skills_right' multiple='multiple' size=5>";
-        echo "</select>";
-	echo "</div>";
+        echo '</select>';
+	echo '</div>';
+    	echo '<div class="form-group">';
+	echo '<div class="col-lg-10 col-lg-offset-2">';
+        echo '<div style="clear:both;"></div>';
+        echo '<button type="button" onclick="move( ‘location_left’, ‘location_right’ )"> > </button><br>';
+        echo '<button type="button" onclick="move( ‘location_right’, ‘location_left’ )"> < </button>'; 
+	echo '</div><br>';
+    	echo '<div class="form-group">';
+	echo '<label for="select" class="col-lg-2 control-label">Selected Skills</label>';
+	echo '<div class="col-lg-10">';
+        echo '<div style="clear:both;"></div>';
+        echo '<select class="form-control" name="skills_right" id="skills_right" multiple="multiple" size=5>';
+        echo '</select>';
+	echo '</div>';
 } // if user_level
 // $db->debug();
 ?>
