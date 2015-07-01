@@ -18,13 +18,13 @@ include("includes/ez_sql_mysqli.php");
 $actionstatus = "";
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 //check that user exists before continuing.
-$isuser = $db->get_var("SELECT count(*) from site_users WHERE (user_id = $user_id);");
+$isuser = $db->get_var("SELECT count(*) FROM site_users WHERE (user_id = $user_id);");
 if ($isuser == 0) {
 	echo "<p>Error</p>";
 	echo exit;
 }
 //check if user is locked out from changes
-$user_protect_edit = $db->get_var("select user_protect_edit from site_users where user_id = $user_id;");
+$user_protect_edit = $db->get_var("SELECT user_protect_edit FROM site_users WHERE user_id = $user_id;");
 if ($user_protect_edit == 1){
 	echo "<br /><div class=\"alert alert-success\" style=\"max-width: 220px;\"><i class='fa fa-lock'></i> Account Changes Locked</div>";
 	include("includes/footer.php");
@@ -159,14 +159,12 @@ $user_msg_send = $site_users->user_msg_send;
 	<input type="text" class="form-control" name="user_country" id="user_country" value="<?php echo $site_users->user_country;?>">
 	</div>
 </div>
+
 <?php
 if ($user_level == 2){
 // Only staff members can select their skills
-    	echo '<div class="form-group">';
 	echo '<label for="select" class="col-lg-2 control-label">Available Skills</label>';
-	echo '<div class="col-lg-10">';
-        echo '<div style="clear:both;"></div>';
-        echo '<select class="form-control" name="skills_left" id="skills_left" multiple="multiple" size=5>';
+        echo '<select id="MasterSelectBox" multiple size="5" style="min-width: 200px;float:left;" name="skills_left">';
 	$myquery = "SELECT skill_name FROM skills ORDER BY skill_name;";
 	$skills = $db->get_results($myquery);
 	$num = $db->num_rows;
@@ -177,18 +175,11 @@ if ($user_level == 2){
 		} // foreach
 	} // if
         echo '</select>';
-	echo '</div>';
-    	echo '<div class="form-group">';
-	echo '<div class="col-lg-10 col-lg-offset-2">';
-        echo '<div style="clear:both;"></div>';
-        echo '<button type="button" onclick="move( ‘location_left’, ‘location_right’ )"> > </button><br>';
-        echo '<button type="button" onclick="move( ‘location_right’, ‘location_left’ )"> < </button>'; 
-	echo '</div><br>';
-    	echo '<div class="form-group">';
+	echo '<div style="float:left;margin:10px;">';
+	echo '<button id="btnAdd">></button><br>';
+	echo '<button id="btnRemove"><</button></div>';
 	echo '<label for="select" class="col-lg-2 control-label">Selected Skills</label>';
-	echo '<div class="col-lg-10">';
-        echo '<div style="clear:both;"></div>';
-        echo '<select class="form-control" name="skills_right" id="skills_right" multiple="multiple" size=5>';
+        echo '<select id="PairedSelectBox" multiple size="5" style="min-width: 200px;float:left;" name="skills_right">';
         echo '</select>';
 	echo '</div>';
 } // if user_level
@@ -205,5 +196,10 @@ if ($user_level == 2){
 <input type='hidden' name='update' value='1'>
 
 </form>
+<!-- validation -->
+<script src="js/jquery.min.js"></script>
+<script src="js/pair-select.min.js"></script>
+<script src="js/main.js"></script>
+<!-- validation -->
 <br>
 <?php include("includes/footer.php");

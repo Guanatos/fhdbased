@@ -37,28 +37,43 @@ if ($num >= 0){ // if there are Staff Members
 	echo '<label for="select" class="col-lg-2 control-label">Staff Members</label>';
 	echo '<div class="col-lg-10">';
         echo '<div style="clear:both;"></div>';
-        echo '<select class="form-control" name="staff_members" id="staff_members" multiple="multiple" size=5>';
+        echo '<select style="min-width: 200px;float:left;" name="staff_members" id="staff_members" multiple="multiple" size=5>';
 	foreach ( $staffcrew as $staffmember ) {
 		$user_name = $staffmember->user_name;
 		echo "<option value='$user_name'>$user_name</option>";
 	} // foreach
         echo '</select>';
 	echo '</div><br>';
-	$availskills = $db->get_results($myquery3);
+	$avail_skills = $db->get_results($myquery3);
 	$num = $db->num_rows;
 	if ($num >= 0){ // if there are Skills Available
         	echo '<div class="form-group">';
         	echo '<label for="select" class="col-lg-2 control-label">Available Skills</label>';
         	echo '<div class="col-lg-10">';
         	echo '<div style="clear:both;"></div>';
-        	echo '<select class="form-control" name="staff_members" id="staff_members" multiple="multiple" size=5>';
-        	foreach ( $availskills as $availskill ) {
-                	$skill_name = $availskill->skill_name;
+        	echo '<select style="min-width: 200px;float:left;" name="staff_members" id="staff_members" multiple="multiple" size=5>';
+        	foreach ( $avail_skills as $avail_skill ) {
+                	$skill_name = $avail_skill->skill_name;
                 	echo "<option value='$skill_name'>$skill_name</option>";
         	} // foreach
         	echo '</select>';
         	echo '</div><br>';
 	} // if
+        $selected_skills = $db->get_results($myquery2);
+        $num = $db->num_rows;
+        if ($num >= 0){ // if there are Selected skills
+                echo '<div class="form-group">';
+                echo '<label for="select" class="col-lg-2 control-label">Selected Skills</label>';
+                echo '<div class="col-lg-10">';
+                echo '<div style="clear:both;"></div>';
+                echo '<select style="min-width: 200px;float:left;" name="staff_members" id="staff_members" multiple="multiple" size=5>';
+                foreach ( $selected_skills as $selected_skill ) {
+                        $skill_name = $selected_skill->skill_name;
+                        echo "<option value='$skill_name'>$skill_name</option>";
+                } // foreach
+                echo '</select>';
+                echo '</div><br>';
+        } // if
 ?>
 <?php
 	foreach ( $site_calls as $call ) {
