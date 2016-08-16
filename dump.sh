@@ -8,7 +8,7 @@
 #}
 DATE=`date +%m%d%y%H%M%S`
 if [ $# -gt 0 ]; then
-	mysqldump -u root -p fhdbased > fhdbased.nodata.$DATE.sql
+	mysqldump -u root -p fhdbased > fhdbased.data.$DATE.sql
 else
-	mysqldump -u root -p --no-data fhdbased > fhdbased.data.$DATE.sql
+	mysqldump -u root -p --no-data fhdbased > fhdbased.nodata.$DATE.sql
 fi
