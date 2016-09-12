@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Help Desk</title>
+	<title>Free Help Desk</title>
 <?php
 $_SESSION['auth'] = md5(uniqid(microtime()));
 //check for fhd_config
