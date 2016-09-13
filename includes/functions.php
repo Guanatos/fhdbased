@@ -7,13 +7,13 @@ function ifexist($table, $field, $id) {
 // $db->debug();
 	return $var;
 }
-// This is a boolean function to identify duplicates
-// There are 3 parameters, table, field and value
-// type and type_name
-function ifexist2($table, $field1, $field2, $id1, $id2) {
+
+// This is a boolean function to identify duplicate names of Departments, Priorities, Devices
+// There is only one parameter "type_name"
+function ifexist2($type_name) {
         $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-        $var = $db->get_var("SELECT count($field2) FROM $table WHERE $field1 LIKE '$id1' AND $field2 LIKE '$id2'");
-// $db->debug();
+        $var = $db->get_var("SELECT count(type_name) FROM site_types WHERE type_name LIKE $type_name;");
+ //$db->debug();
         return $var;
 }
 
@@ -184,6 +184,7 @@ switch ($type) {
 return $show_user_level;
 }
 
+// Show the type name depending on EU selection
 function show_type_name($type) {
 switch ($type) {
     case 0:
@@ -198,7 +199,7 @@ switch ($type) {
     case 3:
         echo "Device Type";
 		break;
-}
+ }
 }
 
 function show_type_col($type) {

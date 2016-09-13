@@ -19,7 +19,7 @@ $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
 //<ADD>
 if (isset($_POST['nacl'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("select last_login from site_users where user_id = $user_id;")) ) {
+ if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
 	$call_status = $db->escape($_POST['call_status']);
 	$call_date = $db->escape(strtotime($_POST['call_date']));
@@ -149,8 +149,7 @@ foreach ($staff_name as $staff )
 <input type="submit" value="add" class="btn btn-large btn-primary">
 </form>
 <?php
-if(isset($_SESSION['user_name'])){
-	
+if(isset($_SESSION['user_name'])){	
 	echo "" . $_SESSION['user_name'] . "";
 }
 include("includes/footer.php");
