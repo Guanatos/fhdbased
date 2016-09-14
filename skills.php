@@ -48,7 +48,7 @@ if ($num >= 0){ // if there are records, show them
 		echo "</tr>\n";
 		} // foreach
 ?>
-	<h5><i class="fa fa-plus"></i> <a href="add_skills.php">Add New</a></h5>
+	<h5><i class="fa fa-plus"></i> <a href="dnr_add_skills.php">Add New</a></h5>
 <?php } ?> 
 	</table>
 
