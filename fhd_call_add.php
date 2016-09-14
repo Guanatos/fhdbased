@@ -7,7 +7,7 @@ include("includes/checksession_ss.php");
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Ticket Details</title>
+<title>Ticket Details</title>
 <?php 
 include("fhd_config.php");
 include("includes/header.php");

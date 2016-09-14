@@ -1,5 +1,4 @@
 <?php
-// fhd_settings_action.php
 ob_start();
 include("includes/session.php");
 include("includes/checksession.php");
@@ -8,16 +7,17 @@ include("includes/checksessionadmin.php");
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Settings</title>
+<meta charset="utf-8">
+<title>Settings</title>
 <?php
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
+include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-
+$actionstatus = "";
 //<DELETE>
 if (isset($_GET['nacl'])){
  if ( $_GET['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
@@ -28,16 +28,14 @@ if (isset($_GET['nacl'])){
 	if ($action == 'delete'){
 		$db->query("DELETE FROM site_types WHERE type_id = $type_id;");
 		header("Location: fhd_settings_action.php?type=$type");
-		}
+	}
  }
 }
 //</DELETE>
-
 //check type variable
 $type = checkid( $_GET['type'] );
 ?>
 <p><a href="fhd_settings.php">Settings</a></p>
-
 <h4><?php show_type_name($type);?></h4>
 <h5><i class="fa fa-plus"></i> <a href="fhd_add_type.php?type=<?php echo $type;?>">Add New</a></h5>
 <?php
@@ -49,7 +47,6 @@ if ($num == 0) {
 	exit;
 }
 ?>
-
 <?php if ($num > 0) { ?>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
 <tr>

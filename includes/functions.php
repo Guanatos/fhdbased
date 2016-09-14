@@ -11,10 +11,10 @@ function ifexist($table, $field, $id) {
 // This is a boolean function to identify duplicate names of Departments, Priorities, Devices
 // There is only one parameter "type_name"
 function ifexist2($type_name) {
-        $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-        $var = $db->get_var("SELECT count(type_name) FROM site_types WHERE type_name LIKE $type_name;");
+    $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
+    $var = $db->get_var("SELECT count(type_name) FROM site_types WHERE type_name LIKE $type_name;");
  //$db->debug();
-        return $var;
+    return $var;
 }
 
 function checkid($id) {

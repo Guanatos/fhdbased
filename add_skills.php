@@ -1,13 +1,14 @@
 <?php
+ob_start();
 include("includes/session.php");
-include ("includes/checksession.php");
+include("includes/checksession.php");
 include("includes/checksessionadmin.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Add Skills Details</title>
+<title>Add Skills Details</title>
 <?php 
 include("fhd_config.php");
 include("includes/header.php");
@@ -15,11 +16,11 @@ include("includes/all-nav.php");
 include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-$actionstatus = "";
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-//<ADD>
+$actionstatus = "";
+// <ADD>
 if (isset($_POST['nacl'])){
- if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
+  if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 //authentication verified, continue.
 	$skill_name = $db->escape($_POST['skill_name']);
 	$skill_desc = $db->escape($_POST['skill_desc']);

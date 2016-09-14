@@ -41,14 +41,12 @@ if (isset($_POST['nacl'])){
        <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
        Record Added.
        </div>";
-       echo $_POST['type'];
 //   }
   }
 }
 echo $actionstatus;
-echo $_GET['type'];
 echo "<p><a href='fhd_settings.php'>Settings</a></p>";
-// </ADD> during GET
+// </ADD>
 //check type variable
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT user_password FROM site_users WHERE user_id = $user_id;"));
 $type = checkid($_GET['type']);
@@ -58,15 +56,28 @@ $type = checkid($_GET['type']);
 <form action="fhd_add_type.php" method="post" class="form-horizontal">
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
 <input type='hidden' name='type' value='<?php echo $type;?>'>
-<tr><td>Name</td><td><input type='text' name='type_name'></td></tr>
-<tr><td>Description</td><td><textarea rows="4" cols="50" name='type_desc'></textarea></td></tr>
-<tr><td colspan='2'><input type='submit' value='Add' class='btn btn-primary'></td></tr>
-</table>
+<?php
+// Departments, Priorities, Devices
+if ($type == 0) { ?>
+	<tr><td>Name</td><td><input type='text' name='type_name'></td></tr>
+	<tr><td>Description</td><td><textarea rows="4" cols="50" name='type_desc'></textarea></td></tr>
+	<tr><td colspan='2'><input type='submit' value='Add' class='btn btn-primary'></td></tr>
+	</table>
+<?php  }
+// Support staff
+if ($type <> 0) { ?>
+	<tr><td>Name</td><td><input type='text' name='type_name'></td></tr>
+	<tr><td>Description</td><td><textarea rows="4" cols="50" name='type_desc'></textarea></td></tr>
+	<tr><td>Email</td><td><input type='text' name='type_email'></td></tr>
+	<tr><td>Location</td><td><input type='text' name='type_location'></td></tr>
+	<tr><td>Phone</td><td><input type='text' name='type_phone'></td></tr>
+	<tr><td colspan='2'><input type='submit' value='add' class='btn btn-primary'></td></tr>
+	</table>
+<?php }?>
 </form>
 </table>
 <h5><i class="fa fa-arrow-left"></i><a href="fhd_settings_action.php?type=<?php echo $type;?>"> Back to <?php echo show_type_name($type);?></a></h5>
 <?php
-$type = 0;
 if(isset($_SESSION['name'])){
 	echo "<br /><p><strong>Login Name:</strong> " . $_SESSION['name'] . "</p>";
 }
