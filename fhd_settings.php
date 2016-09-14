@@ -24,7 +24,7 @@ if ($encrypted_passwords <> 'yes') {
 $date = date_create();
 $fhddate = date_format($date, 'U')
 ?>
-<h4>Help Desk Settings</h4>
+<h4>System Settings</h4>
 <!--
 <a href="fhd_settings_action.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
 -->

@@ -1,5 +1,5 @@
 <?php
-// skills.php
+// departments.php
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
@@ -18,13 +18,13 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
-$type = checkid($_GET['type']);
 $action = $db->escape( $_GET['action'] );
 $type_id = $db->escape( $_GET['type_id'] );
+$type = $db->escape($_GET['type']);
 if ($action == 'delete'){
    $db->query("DELETE FROM site_types WHERE type_id = $type_id;");
 }
-$myquery = "SELECT type_id, type, type_name, type_desc FROM site_types WHERE type LIKE $type ORDER BY type_name;";
+$myquery = "SELECT type_id, type, type_name, type_desc FROM site_types WHERE type LIKE 1 ORDER BY type_name;";
 $site_calls = $db->get_results($myquery);
 $num = $db->num_rows;
 echo "<p><a href='fhd_settings.php'>Back to Settings</a></p>";
