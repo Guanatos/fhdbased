@@ -8,15 +8,6 @@ function ifexist($table, $field, $id) {
 	return $var;
 }
 
-// This is a boolean function to identify duplicate names of Departments, Priorities, Devices
-// There is only one parameter "type_name"
-function ifexist2($type_name) {
-    $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-    $var = $db->get_var("SELECT count(type_name) FROM site_types WHERE type_name LIKE $type_name;");
- $db->debug();
-    return $var;
-}
-
 function checkid($id) {
 	if(!is_numeric($id)){
 		echo "<p>Invalid ID</p>";
@@ -180,8 +171,8 @@ switch ($type) {
     case 3:
         $show_user_level = "";
 		break;
-}
-return $show_user_level;
+	}
+	return $show_user_level;
 }
 
 // Show the type name depending on EU selection
@@ -216,8 +207,8 @@ switch ($type) {
     case 3:
         $show_type_col = "call_device";
 		break;
-}
-return $show_type_col;
+	}
+	return $show_type_col;
 }
 
 
@@ -232,7 +223,7 @@ switch ($value) {
     case '3':
         $value = "Deleted";
 		break;
-}
+	}
 	return $value;
 }
 
@@ -266,3 +257,4 @@ function generatePassword($length=9, $strength=0) {
 	}
 	return $password;
 }
+?>
