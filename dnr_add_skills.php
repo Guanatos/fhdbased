@@ -38,7 +38,7 @@ if (isset($_POST['nacl'])){
         Skill Added.
         </div>";
 	}
-   }
+  }
 }
 //</ADD>
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
@@ -50,7 +50,7 @@ echo "<p><a href='fhd_settings.php'>Settings</a></p>";
 ?>
 <form action="dnr_add_skills.php" method="post" class="form-horizontal" data-parsley-validate>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
-	<tr><td>Skill Name*</td>
+	<tr><td>Name*</td>
 	<td><input type="text" name="skill_name" required></td></tr>
 	<tr><td>Description*</td>
 	<td><textarea rows="2" name="skill_desc" required></textarea></td>
@@ -58,9 +58,10 @@ echo "<p><a href='fhd_settings.php'>Settings</a></p>";
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
 <input type="submit" value="Add Skill" class="btn btn-primary">
 </form>
-<h5><i class="fa fa-arrow-left"></i><a href="skills.php?skill=show">Back to Skills</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="skills.php?skill=show"> Back to Skills</a></h5>
 <?php
 if(isset($_SESSION['name'])){
 	echo "<p><strong>Name:</strong> " . $_SESSION['name'] . "</p>";
 }
 include("includes/footer.php");
+?>

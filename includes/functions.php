@@ -13,7 +13,7 @@ function ifexist($table, $field, $id) {
 function ifexist2($type_name) {
     $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
     $var = $db->get_var("SELECT count(type_name) FROM site_types WHERE type_name LIKE $type_name;");
- //$db->debug();
+ $db->debug();
     return $var;
 }
 

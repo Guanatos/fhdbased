@@ -18,54 +18,47 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
+$type = 1;   // Departments
 // This code is executed after hitting the <ADD> button
 if (isset($_POST['nacl'])){
-  if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT user_password FROM site_users WHERE user_id = $user_id;")) ) {
-	 //authentication verified, continue.
-	 $type = checkid($_POST['type']);
-	 $type_name = $db->escape($_POST['type_name']);
-	 $type_email = $db->escape($_POST['type_email']);
-	 $type_location = $db->escape($_POST['type_location']);
-	 $type_phone = $db->escape($_POST['type_phone']);
-//	 if (ifexist('skills','skill_name',$skill_name)){
+	if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {	
+  	 $type_name = $db->escape($_POST['type_name']);	 
+	 if (ifexist('site_types','type_name',$type_name)){
 	 	// Record Found
-//	 	$actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
-//      <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-//      Record duplicated, nothing was changed.
-//	    </div>";
+	 	$actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
+        <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+        Record duplicated, nothing was changed.
+	    </div>";
 	 	// Record Not Found
-//	 } else {
-	   $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
-	 //$db->debug();
-       $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
-       <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-       Record Added.
-       </div>";
-       echo $_POST['type'];
-//   }
-  }
+	 } else {
+	    $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
+	    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
+        <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+        Record Added.
+        </div>";
+     }
+   }
 }
 //</ADD>
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 ?>
 <h4>Add Departments</h4>
-<?php
+<?php 
 echo $actionstatus;
-//echo "<p><a href='fhd_settings.php'>Settings</a></p>";
+echo "<p><a href='fhd_settings.php'>Settings</a></p>";
 ?>
 <form action="dnr_add_departments.php" method="post" class="form-horizontal" data-parsley-validate>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
 	<tr><td>Name*</td>
-	<td><input type="text" name="skill_name" required></td></tr>
-	<tr><td>Description*</td>
-	<td><textarea rows="2" name="skill_desc" required></textarea></td>
+	<td><input type="text" name="type_name" required></td></tr>
 </table>
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
 <input type="submit" value="Add Department" class="btn btn-primary">
 </form>
-<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings_action.php"> Back to Settings</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="http://localhost/fhdbased/departments.php?type=1"> Back to Departments</a></h5>
 <?php
 if(isset($_SESSION['name'])){
 	echo "<p><strong>Name:</strong> " . $_SESSION['name'] . "</p>";
 }
 include("includes/footer.php");
+?>
