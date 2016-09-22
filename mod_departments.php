@@ -24,7 +24,7 @@ if (isset($_POST['nacl'])){
         $type_id = $db->escape($_POST['type_id']);
         $type_name = $db->escape($_POST['type_name']);
 // See if the record is not duplicated
-	if (ifexist('site_types','type_name',$type_name)){
+	if (ifexist2($type,$type_name)){
 // Record Found
         $actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
         <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
@@ -49,23 +49,23 @@ $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_
 <h4>Edit Department</h4>
 <?php 
 echo $actionstatus;
-echo "<p><a href='fhd_settings.php'>Settings</a></p>";
+echo "<p><a href='fhd_settings.php'> Settings</a></p>";
 ?>
 <?php if ($num > 0) { 
-	$skills = $db->get_results("SELECT type_id,type_name FROM site_types WHERE type_id LIKE '$type_id' ORDER BY type_name;");
-	echo "<form action='' method='post' class='form-horizontal'>\n";
+	$skills = $db->get_results("SELECT type_name FROM site_types WHERE type_id LIKE '$type_id' ORDER BY type_name;");
+	echo "<form action='mod_departments.php' method='post' class='form-horizontal'>\n";
 	foreach ( $skills as $skill ) {
 	$type_id = $skill->type_id;
 	$type_name = $skill->type_name;
 	echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
 	echo "<tr><td>Department Name*</td>";
 	echo "<td><input type='text' name='type_name' value='$type_name' required></td></tr>\n";
-	echo "<tr><td colspan='2'><input type='submit' value='update' class='btn btn-primary'></td></tr>\n";
+	echo "<tr><td colspan='2'><input type='submit' value='Update' class='btn btn-primary'></td></tr>\n";
 	echo "</table>\n</form>\n";
 	} //foreach
    } //IF
 ?>
-<h5><i class="fa fa-arrow-left"></i><a href="skills.php?skill=show">Back to Skills</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="departments.php?type=1"> Back to Departments</a></h5>
 <?php
 if(isset($_SESSION['name'])){
 	echo "<br /><p><strong>Login Name:</strong> " . $_SESSION['name'] . "</p>";
