@@ -112,9 +112,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export http_proxy=http://proxy-us.intel.com:911
-export https_proxy=https://proxy-us.intel.com:911
-export no_proxy=localhost,.intel.com,127.0.0.0/8,10.0.0.0/8,172.16.0.0/20,192.168.0.0/16
 export USE_CCACHE=1
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 git config --global user.name "Daniel Nuno"
