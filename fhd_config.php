@@ -7,7 +7,7 @@ define('db_name', 'fhdbased');
 define('db_user', 'fhdbased');
 
 /** MySQL database password */
-define('db_password', 't3l05ab3s');
+define('db_password', 'sun123');
 
 /** MySQL hostname */
 define('db_host', 'localhost');

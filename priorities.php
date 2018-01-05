@@ -1,5 +1,5 @@
 <?php
-// departments.php
+// priorities.php
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
@@ -35,7 +35,7 @@ if ($num >= 0){ // if there are records, show them
 	<table class="<?php echo $table_style_2;?>" style='width: auto;'>
 	<tr>
 		<th>Name</th>
-<!-- <th>Description</th>  -->		
+<!-- <th>Description</th>  -->
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
@@ -54,7 +54,7 @@ if ($num >= 0){ // if there are records, show them
 		} // foreach
 ?>
 <h5><i class="fa fa-plus"></i> <a href="dnr_add_prio.php">Add New</a></h5>
-<?php } ?> 
+<?php } ?>
 </table>
 <?php
 if(isset($_SESSION['user_name'])){

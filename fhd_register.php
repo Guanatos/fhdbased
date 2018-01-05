@@ -8,7 +8,7 @@ $_SESSION['captcha'] = simple_php_captcha();
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Register</title>
+<title>Register</title>
 <?php
 include("includes/ajax.php");
 include("fhd_config.php");
@@ -26,20 +26,20 @@ if (ALLOW_REGISTER <> "yes"){
 	<td><input name="optionsRadios" id="optionsRadios1" value="1" checked="" type="radio"> Do you need a job to get done?</td>
 	<td><input name="optionsRadios" id="optionsRadios2" value="2" type="radio"> Do you need a job?</td>
 </tr>
-	<td>your name:</td>
-	<td><input type="text" name="name" id="name"></td>
+	<td>your full name:</td>
+	<td><input type="text" name="name" id="name" placeholder="firstname lastname"></td>
 </tr>
 <tr>
 	<td>login name:</td>
-	<td><input type="text" name="login" onblur="showResult(this.value)" required> <span id="txtHint"></span></td>
+	<td><input type="text" name="login" onblur="showResult(this.value)" placeholder="at least 8 characters" required> <span id="txtHint"></span></td>
 </tr>
 <tr>
 	<td>email:</td>
-	<td><input type="text" id="email" name="email" placeholder="name@example.com"></td>
+	<td><input type="text" name="email" id="email" placeholder="name@example.com"></td>
 </tr>
 <tr>
 	<td>password:</td>
-	<td><input type="password" id="password" name="password" placeholder="at least 5 characters"></td>
+	<td><input type="password" name="password" id="password" placeholder="at least 6 characters"></td>
 </tr>
 <?php
 if (CAPTCHA_REGISTER == "yes"){
@@ -62,7 +62,7 @@ if (CAPTCHA_REGISTER == "yes"){
     color: green;
 	margin:0 0 0 5px;
 }
-	
+
 .LV_invalid {
     color:#CC0000;
 	margin:0 0 0 5px;
@@ -80,7 +80,7 @@ email.add( Validate.Email );
 
 var password = new LiveValidation( 'password', {wait: 500, validMessage: "Thank you" } );
 password.add( Validate.Presence, { failureMessage: " Required" } );
-password.add( Validate.Length, { minimum: 5 } );
+password.add( Validate.Length, { minimum: 6 } );
 
 var captcha = new LiveValidation( 'captcha', {wait: 2000, validMessage: "Thank you" } );
 captcha.add( Validate.Presence, { failureMessage: " Required" } );

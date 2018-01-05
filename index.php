@@ -1,11 +1,14 @@
-<?php include("includes/session.php");?>
+<?php include("includes/session.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Free Help Desk</title>
+<title>Free Help Desk</title>
+
 <?php
 $_SESSION['auth'] = md5(uniqid(microtime()));
+
 //check for fhd_config
 $filename = 'fhd_config.php';
 if (!file_exists($filename)) {
@@ -28,7 +31,7 @@ include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $SCHEMA_NAME = $db->get_var("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '".db_name."';");
 if ($SCHEMA_NAME <> db_name) {
-    echo "<p></p><strong>Notice:</strong> Software Configuration Needed</p>";
+  echo "<p></p><strong>Notice:</strong> Software Configuration Needed</p>";
 	echo "<p>Database specified in fhd_config.php [ ".db_name." ] does not exist, please check the <a href='readme.htm' target='_blank'>readme file</a>.</p>";
 	include("includes/footer.php");
 	exit;
@@ -37,7 +40,7 @@ if ($SCHEMA_NAME <> db_name) {
 //check if tables actually exist.
 $user_table_exists = $db->get_var("SHOW TABLES LIKE 'site_users';");
 if ($user_table_exists <>  "site_users") {
-    echo "<p></p><strong>Notice:</strong> Software Configuration Needed</p>";
+  echo "<p></p><strong>Notice:</strong> Software Configuration Needed</p>";
 	echo "<p>One or more database tables are missing from database (named: ".db_name."). Please run <strong>site.sql</strong> against your databsae to create the tables. Please check the <a href='readme.htm' target='_blank'>readme file</a></p>";
 	include("includes/footer.php");
 	exit;
@@ -71,17 +74,16 @@ if ($options_exists <>  "site_options") {
 	$db->query("INSERT INTO site_options(option_name) VALUES ('encrypted_passwords');");
 	}
 
-if(isset($_SESSION['user_id'])){
+if (isset($_SESSION['user_id'])) {
 	$user_id = $_SESSION['user_id'];
 	include("includes/all-nav.php");
 	echo "<p>Welcome</p>";
 	echo "<p><a href='fhd_dashboard.php'>Help Desk Dashboard</a></p>";
 }else{
-?>	
-
+?>
 <?php
 //limit login tries.
-if (isset ( $_SESSION['hit'] ) ) {
+if (isset($_SESSION['hit'])) {
 	if ($_SESSION['hit'] > LOGIN_TRIES){
 		echo "<p><i class='fa fa-lock fa-2x pull-left'></i> Access Locked</p>";
 		include("includes/footer.php");
@@ -90,11 +92,10 @@ if (isset ( $_SESSION['hit'] ) ) {
 }
 ?>
 <?php
-if ( isset ($_GET['loggedout']) ) {
+if (isset($_GET['loggedout'])) {
 echo "<div class=\"alert alert-success\" style=\"max-width: 350px; text-align: center;\"><strong>Logged Out</strong><button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button></div>";
 }
 ?>
-
 <?php
 if (ALLOW_ANY_ADD == 'yes') {
 	echo "<h4><a href='fhd_any_call_add.php' class='btn btn-success'>Open Ticket <i class='glyphicon glyphicon-new-window'></i></a></h4>";
@@ -146,7 +147,7 @@ if (ALLOW_ANY_ADD == 'yes') {
 <form action="fhd_login.php" method="post" class="form-horizontal" role="form">
 
 <div class="form-group">
-	<label class="col-sm-2 control-label" for="inputEmail">Email</label>
+	<label class="col-sm-2 control-label" for="inputEmail">Email/Username</label>
 	<div class="col-sm-3">
 	<input type="text" id="inputEmail" name="user_login" placeholder="Email/Username" required>
 	</div>
@@ -167,8 +168,8 @@ if (ALLOW_ANY_ADD == 'yes') {
 </form>
 
 <p><?php if (ALLOW_REGISTER == "yes"){?>
-<a href="fhd_register.php" class="btn btn-default">register</a>  
+<a href="fhd_register.php" class="btn btn-default">register</a>
 <?php } ?> <a href="fhd_forgotpassword.php" class="btn btn-default">forgot password</a></p>
 <?php }?>
 
-<?php include("includes/footer.php");?>	
+<?php include("includes/footer.php");?>

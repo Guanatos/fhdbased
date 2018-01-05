@@ -1,5 +1,5 @@
 <?php
-// This is a boolean function to identify duplicates
+// This is a boolean function to identify duplicates on a given table
 // There are 3 parameters, table, field and value
 function ifexist($table, $field, $id) {
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
@@ -8,15 +8,16 @@ function ifexist($table, $field, $id) {
 	return $var;
 }
 
-// This is a boolean function to identify duplicates
+// This is a boolean function to identify duplicates on a site_types table
 // There are 3 parameters, table, field and value
-function ifexist2($type, $type_name) {
+function if_type_exist($type, $type_name) {
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-	$var = $db->get_var("SELECT count($type_name) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
-	// $db->debug();
-	return $var;
+	$result = $db->get_var("SELECT count(type) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
+	$db->debug();
+	return $result;
 }
 
+// Need description
 function checkid($id) {
 	if(!is_numeric($id)){
 		echo "<p>Invalid ID</p>";
