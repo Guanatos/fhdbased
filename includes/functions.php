@@ -14,16 +14,16 @@ function if_type_exist($type, $type_name) {
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 	$result = $db->get_var("SELECT count(type) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
 	$db->debug();
-	return $result;
+	return empty($result);
 }
 
-// Need description
-function checkid($id) {
-	if(!is_numeric($id)){
-		echo "<p>Invalid ID</p>";
+// Review if the provided ID is numeric
+function check_id($id) {
+	if(!is_numeric($id)) {
+		echo "<p>ID is not numeric</p>";
 		exit;
-		}else{
-	return $id;
+	} else {
+		return $id;
 	}
 }
 
