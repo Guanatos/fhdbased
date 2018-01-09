@@ -1,4 +1,6 @@
-<?php include("includes/session.php");?>
+<?php
+	include("includes/session.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +20,8 @@ if (!file_exists($filename)) {
 	include("includes/footer.php");
 	exit;
 }
-
 include("fhd_config.php");
 include("includes/header.php");
-
 //check database settings.
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
@@ -77,7 +77,7 @@ if(isset($_SESSION['user_id'])){
 	echo "<p>Welcome</p>";
 	echo "<p><a href='fhd_dashboard.php'>Help Desk Dashboard</a></p>";
 }else{
-?>	
+?>
 
 <?php
 //limit login tries.
@@ -167,8 +167,8 @@ if (ALLOW_ANY_ADD == 'yes') {
 </form>
 
 <p><?php if (ALLOW_REGISTER == "yes"){?>
-<a href="fhd_register.php" class="btn btn-default">register</a>  
+<a href="fhd_register.php" class="btn btn-default">register</a>
 <?php } ?> <a href="fhd_forgotpassword.php" class="btn btn-default">forgot password</a></p>
 <?php }?>
 
-<?php include("includes/footer.php");?>	
+<?php include("includes/footer.php");?>

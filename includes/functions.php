@@ -60,13 +60,14 @@ if(!is_numeric($id)){
 	}
 }
 
-function checkpwd($password,$user_login) {
+// Verify that this is a valid password
+function check_pwd($password,$user_login) {
 	include("includes/PasswordHash.php");
 	$hasher = new PasswordHash(8, false);
 	$stored_hash = "*";
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-
-	if ( $db->get_var("SELECT option_value FROM site_options where option_name = 'encrypted_passwords';") == "yes" ) {
+	// $db->debug();
+	if ( $db->get_var("SELECT option_value FROM site_options WHERE option_name = 'encrypted_passwords';") == "yes" ) {
 	//if encryption is ON
 		$stored_hash = $db->get_var("SELECT user_password from site_users WHERE user_login = '$user_login' OR user_email = '$user_login' LIMIT 1;");
 		$check = $hasher->CheckPassword($password, $stored_hash);
