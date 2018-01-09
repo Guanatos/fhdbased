@@ -5,9 +5,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Help Desk</title>
+	<title>Service Desk</title>
 <?php
 $is_valid = 0;
+$is_pending = 0;
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/functions.php");
@@ -30,6 +31,7 @@ if (isset($_SESSION['hit'])) {
 	$_SESSION['hit'] = 0;
 }
 
+// Required for MySQL DB
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
@@ -38,7 +40,8 @@ if (isset($_POST['user_login'])) {
 	$user_login = trim( $db->escape($_POST['user_login']));
 } else {
 	echo "<div class='alert alert-warning' style='width: 375px;'>";
-	echo "<i class='glyphicon glyphicon-info-sign'></i> Username / Email is Required.</div>";
+	echo "<i class='glyphicon glyphicon-info-sign'>";
+	echo "</i> Username / Email is Required.</div>";
 	include("includes/footer.php");
 	exit;
 }
@@ -48,7 +51,7 @@ if (isset($_POST['user_password'])) {
 	$is_valid = check_pwd($user_password,$user_login);
 }
 
-//uesrs can login with either login name or email address.
+//users can login with either login name or email address.
 $pos = strrpos($user_login, "@");
 if ($pos === false) { // note: three equal signs
     $checkusing = "user_login";
@@ -56,17 +59,22 @@ if ($pos === false) { // note: three equal signs
     $checkusing = "user_email";
 }
 
-$is_pending = $db->get_var("SELECT user_pending FROM site_users WHERE user_login = '$user_login' OR user_email = '$user_login' LIMIT 1;");
-//$db->debug();
-if ($is_pending == 1) {
-	//if user is pending, then set invalid to 0
-	$is_valid = 0;
-}
-
 if ($is_valid <> 1) {
 	$_SESSION['hit'] += 1;
 	echo "<div class='alert alert-warning' style='width: 375px;'>";
-	echo "<i class='glyphicon glyphicon-info-sign'></i> Login incorrect, or your registration is pending.</div>";
+	echo "<i class='glyphicon glyphicon-info-sign'>";
+	echo "</i> Login incorrect.</div>";
+	include("includes/footer.php");
+	exit;
+}
+
+$is_pending = $db->get_var("SELECT user_pending FROM site_users WHERE user_login = '$user_login' OR user_email = '$user_login' LIMIT 1;");
+//$db->debug();
+if ($is_pending == 1) {
+	$_SESSION['hit'] += 1;
+	echo "<div class='alert alert-warning' style='width: 375px;'>";
+	echo "<i class='glyphicon glyphicon-info-sign'>";
+	echo "</i> Your registration is pending.</div>";
 	include("includes/footer.php");
 	exit;
 }
@@ -79,7 +87,7 @@ $user_level = $site_users->user_level;
 if ($user_level == 0) {
 	$_SESSION['admin'] = 1;
 } else {
-	$_SESSION['user']=1;
+	$_SESSION['user'] = 1;
 }
 
 $_SESSION['user_id']=$user_id;

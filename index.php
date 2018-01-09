@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-	<title>Free Help Desk</title>
+	<title>Free Service Desk</title>
 <?php
 $_SESSION['auth'] = md5(uniqid(microtime()));
 //check for fhd_config
@@ -146,14 +146,14 @@ if (ALLOW_ANY_ADD == 'yes') {
 <form action="fhd_login.php" method="post" class="form-horizontal" role="form">
 
 <div class="form-group">
-	<label class="col-sm-2 control-label" for="inputEmail">Email</label>
+	<label class="col-sm-2 control-label" for="inputEmail">Email/Username: </label>
 	<div class="col-sm-3">
 	<input type="text" id="inputEmail" name="user_login" placeholder="Email/Username" required>
 	</div>
 </div>
 
 <div class="form-group">
-	<label class="col-sm-2 control-label" for="inputPassword">Password</label>
+	<label class="col-sm-2 control-label" for="inputPassword">Password: </label>
 	<div class="col-sm-3">
 	<input type="password" id="inputPassword" name="user_password" placeholder="Password" required>
 	</div>

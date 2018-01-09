@@ -73,20 +73,18 @@ function check_pwd($password,$user_login) {
 		$check = $hasher->CheckPassword($password, $stored_hash);
 		if ($check) {
 			$return_value = TRUE;
-		}else{
+		} else {
 			$return_value = FALSE;
 		}
-
 	//if encryption is OFF
-	}else{
-		$num = $db->get_var("select count(user_id) from site_users WHERE (user_login = '$user_login' OR user_email = '$user_login') AND user_password = BINARY '$password' AND user_pending = 0 limit 1;");
+	} else {
+		$num = $db->get_var("SELECT count(user_id) FROM site_users WHERE (user_login = '$user_login' OR user_email = '$user_login') AND user_password = BINARY '$password' AND user_pending = 0 limit 1;");
 		if ($num == 1) {
 			$return_value = TRUE;
-		}else{
+		} else {
 			$return_value = FALSE;
 		}
 	}
-
 return $return_value;
 }
 

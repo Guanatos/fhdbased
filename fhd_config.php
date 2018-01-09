@@ -20,7 +20,7 @@ define('FHD_TIMEADJUST', '0');
 define('AUTH_KEY','change this key');
 
 /** Set how many login tries (session only)*/
-define('LOGIN_TRIES',20);
+define('LOGIN_TRIES',10);
 
 /** email address to send new ticket and registration notices FROM, etc  */
 define('FROM_EMAIL','postmaster@example.com');
@@ -44,7 +44,7 @@ define('REGISTER_APPROVAL','yes');
 define('ALLOW_ANY_ADD','no');
 
 /** Enter the organization title **/
-define('FHD_TITLE', "Acme");
+define('FHD_TITLE', "Service Desk");
 
 /** Allow Uploads ** yes or no */
 define('FHD_UPLOAD_ALLOW', "no");
@@ -66,8 +66,8 @@ $allowedExts = array("jpg","jpeg","gif","png","doc","docx","wpd","xls","xlsx","p
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/simplexbootstrap.min.css');
-//define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css');
-define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/spacelab/bootstrap.min.css');
+define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/slate/bootstrap.min.css');
+//define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/spacelab/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/superhero/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/united/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/yeti/bootstrap.min.css');
