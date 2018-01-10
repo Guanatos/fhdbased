@@ -12,9 +12,13 @@ function ifexist($table, $field, $id) {
 // There are 3 parameters, table, field and value
 function if_type_exist($type, $type_name) {
 	$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-	$result = $db->get_var("SELECT count(type) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
+	//print_r("type: ". $type);
+	//print_r("type name: ". $type_name);
+	$result = 0;
+	$result = $db->get_var("SELECT COUNT(type) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
 	$db->debug();
-	return empty($result);
+  print_r("result: ". $result);
+	return $result;
 }
 
 // Review if the provided ID is numeric

@@ -26,18 +26,18 @@ if (isset($_POST['nacl'])){
 		 if (if_type_exist($type, $type_name)){
 		 	// Record Found
 		 		$actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
-	        <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
-	        Record duplicated, nothing was changed.
-		      </div>";
+	      <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
+	      Record duplicated, nothing was changed.
+		    </div>";
 		 	// Record Not Found
-	 } else {
-	    $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
-			//$db->debug();
-	    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
+		 } else {
+		    $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
+				//$db->debug();
+		    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
         <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
         Record Added.
         </div>";
-     }
+	   }
    }
 }
 //</ADD>

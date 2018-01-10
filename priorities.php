@@ -28,7 +28,7 @@ $myquery = "SELECT type_id, type, type_name FROM site_types WHERE type LIKE 2 OR
 $site_calls = $db->get_results($myquery);
 //$db->debug();
 $num = $db->num_rows;
-echo "<p><a href='fhd_settings.php'>Back to Settings</a></p>";
+//echo "<p><a href='fhd_settings.php'>Back to Settings</a></p>";
 echo "<h4>$num $title Priorities</h4>";
 if ($num >= 0){ // if there are records, show them
 ?>
@@ -56,6 +56,7 @@ if ($num >= 0){ // if there are records, show them
 <h5><i class="fa fa-plus"></i> <a href="dnr_add_prio.php">Add New</a></h5>
 <?php } ?>
 </table>
+<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
 <?php
 if(isset($_SESSION['user_name'])){
 	echo "<h5>Current User: " . $_SESSION['user_name'] . "</h5>";
