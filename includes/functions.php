@@ -16,8 +16,8 @@ function if_type_exist($type, $type_name) {
 	//print_r("type name: ". $type_name);
 	$result = 0;
 	$result = $db->get_var("SELECT COUNT(type) FROM site_types WHERE type = $type AND type_name LIKE '$type_name'");
-	$db->debug();
-  print_r("result: ". $result);
+	//$db->debug();
+  //print_r("result: ". $result);
 	return $result;
 }
 
