@@ -30,6 +30,9 @@ switch ($type) {
     case 2:
       $label = 'Priorities';
       break;
+		case 3:
+      $label = 'Devices';
+      break;
 }
 ?>
 <!DOCTYPE html>

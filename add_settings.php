@@ -28,6 +28,9 @@ switch ($type) {
     case 2:
       $label = 'Priorities';
       break;
+		case 3:
+      $label = 'Devices';
+      break;
 }
 ?>
 <!DOCTYPE html>
@@ -69,12 +72,12 @@ if (isset($_POST['submit'])) {
 if (empty($actionstatus)) {
 		echo "<form action='add_settings.php' method='post' class='form-horizontal' data-parsley-validate>";
 		echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
+		echo "<tr><td>" .  $label . " Name*</td>";
+		echo "<td><input type='text' name='type_name' required></td>";
+		echo "</tr></table>";
 		echo "<input type='hidden' name='label' value='$label' readonly>\n";
 		echo "<input type='hidden' name='type' value='$type' readonly>\n";
-		echo "<tr><td><?php echo $label; ?> Name*</td>";
-		echo "<td><input type='text' name='type_name' required></td></tr>";
-		echo "</table>";
-		echo "<input type='hidden' name='nacl' value='<?php echo $nacl;?>'>";
+		echo "<input type='hidden' name='nacl' value='$nacl' readonly>\n";
 		echo "<input type='submit' name='submit' value='Add " . $label . "' class='btn btn-primary'>";
 		echo "</form>";
 }

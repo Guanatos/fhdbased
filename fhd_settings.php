@@ -1,14 +1,13 @@
 <?php
+/*
+fhd_settings.php
+
+This is a main process to for settings
+
+*/
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>System Settings</title>
-<?php
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
@@ -24,13 +23,19 @@ if ($encrypted_passwords <> 'yes') {
 $date = date_create();
 $fhddate = date_format($date, 'U')
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>System Settings</title>
+</head>
+<body>
 <h4>System Settings</h4>
 <!--
 <a href="fhd_settings_action.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
 -->
 <a href="settings.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
 <a href="settings.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a>
-<a href="devices.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a>
+<a href="settings.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a>
 <a href="skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Skills</a>
 <a href="staff_skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Staff Skills</a>
 <a href="fhd_users.php?support_staff=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Support Staff</a>
@@ -116,3 +121,5 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
 <?php
 include("includes/footer.php");
 ?>
+</body>
+</html>

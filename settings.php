@@ -6,9 +6,9 @@ This is a generic process to list settings
 
 - Departments
 - Priorities
+- Devices
 
 */
-
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
@@ -30,6 +30,9 @@ switch ($type) {
       break;
     case 2:
       $label = 'Priorities';
+      break;
+    case 3:
+      $label = 'Devices';
       break;
 }
 ?>
