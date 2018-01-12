@@ -28,8 +28,8 @@ $fhddate = date_format($date, 'U')
 <!--
 <a href="fhd_settings_action.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
 -->
-<a href="departments.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
-<a href="priorities.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a>
+<a href="settings.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
+<a href="settings.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a>
 <a href="devices.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a>
 <a href="skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Skills</a>
 <a href="staff_skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Staff Skills</a>

@@ -11,9 +11,9 @@ include("includes/checksessionadmin.php");
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
+include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
 // <UPDATE>
@@ -31,7 +31,7 @@ if (isset($_POST['nacl'])){
         Record duplicated, nothing was changed.
 	</div>";
 // Record Not Found
-	} else { 
+	} else {
 	$db->query("UPDATE skills SET skill_name='$skill_name',skill_desc='$skill_desc' WHERE skill_id = $skill_id;");
         $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
         <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
@@ -47,11 +47,11 @@ $num = $db->get_var("SELECT count(skill_id) FROM skills WHERE skill_id LIKE '$sk
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 ?>
 <h4>Edit Type</h4>
-<?php 
+<?php
 echo $actionstatus;
 echo "<p><a href='fhd_settings.php'>Settings</a></p>";
 ?>
-<?php if ($num > 0) { 
+<?php if ($num > 0) {
 	$skills = $db->get_results("SELECT skill_id,skill_name,skill_desc FROM skills WHERE skill_id LIKE '$skill_id' ORDER BY skill_name;");
 	echo "<form action='' method='post' class='form-horizontal'>\n";
 	foreach ( $skills as $skill ) {

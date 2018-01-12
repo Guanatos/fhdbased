@@ -6,7 +6,7 @@ include("includes/checksessionadmin.php");
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Edit Departments</title>
+	<title>Edit Priorities</title>
 <?php
 include("fhd_config.php");
 include("includes/header.php");
@@ -16,7 +16,7 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
-$type = 1; // Departments
+$type = 2; // Priorities
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 if (isset($_POST['submit'])) {
 		if ($nacl == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"))) {
@@ -44,13 +44,13 @@ if (isset($_POST['submit'])) {
 $type_id = $_GET['type_id'];
 $num = $db->get_var("SELECT COUNT(type_id) FROM site_types WHERE type_id LIKE '$type_id';");
 ?>
-<h4>Edit Department</h4>
+<h4>Edit Priorities</h4>
 <?php
 echo $actionstatus;
 echo "<p><a href='fhd_settings.php'> Settings</a></p>";
 if ($num > 0) {
 			$results = $db->get_results("SELECT type_id, type_name FROM site_types WHERE type_id LIKE '$type_id' ORDER BY type_name;");
-			echo "<form action='mod_departments.php' method='post' class='form-horizontal'>\n";
+			echo "<form action='mod_priorities.php' method='post' class='form-horizontal'>\n";
 			foreach ($results as $result ) {
 				$type_id = $result->type_id;
 				$type_name = $result->type_name;
@@ -63,7 +63,7 @@ if ($num > 0) {
 				} //foreach
    		} //IF
 ?>
-<h5><i class="fa fa-arrow-left"></i><a href="departments.php?type=1"> Back to Departments</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="priorities.php?type=1"> Back to Priorities</a></h5>
 <?php
 if (isset($_SESSION['name'])) {
 	 echo "<br /><p><strong>Login Name:</strong> " . $_SESSION['name'] . "</p>";
