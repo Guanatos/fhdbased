@@ -75,7 +75,8 @@ if ($num >= 0) { // if there are records, show them
   		echo "</tr>\n";
   		} // foreach
 ?>
-    <h5><i class="fa fa-plus"></i> <a href="dnr_add_departments.php">Add New</a></h5>
+    <h5><i class="fa fa-plus"></i> <a href="add_settings.php?type=<?php echo $type ?>">Add New</a></h5>
+<!--    <h5><i class="fa fa-plus"></i> <a href="dnr_add_departments.php">Add New</a></h5> -->
 <?php } ?>
 </table>
 <h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
