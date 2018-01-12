@@ -6,6 +6,8 @@ This is a generic process to add settings
 
 - Departments
 - Priorities
+- Devices
+
 */
 ob_start();
 include("includes/session.php");

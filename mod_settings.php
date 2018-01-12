@@ -6,6 +6,7 @@ This is a generic process to manage settings
 
 - Departments
 - Priorities
+- Devices
 
 */
 include("includes/session.php");

@@ -15,7 +15,7 @@ include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-$encrypted_passwords = $db->get_var("SELECT option_value from site_options where option_name = 'encrypted_passwords';");
+$encrypted_passwords = $db->get_var("SELECT option_value FROM site_options WHERE option_name = 'encrypted_passwords';");
 $encrypted_link = "";
 if ($encrypted_passwords <> 'yes') {
 	$encrypted_link = " <small><a href='fhd_admin_e.php'>Encrypt Passwords</a></small>";
