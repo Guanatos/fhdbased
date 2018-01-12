@@ -37,41 +37,45 @@ switch ($type) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title><?php echo $label; ?></title>
+  <title><?php echo $label; ?></title>
+</head>
+<body>
 <?php
+$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 if ($action == 'delete'){
    $db->query("DELETE FROM site_types WHERE type_id = $type_id;");
 }
-$myquery = "SELECT type_id, type, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
-$site_calls = $db->get_results($myquery);
+$myquery = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
+$results = $db->get_results($myquery);
 //$db->debug();
 $num = $db->num_rows;
-echo "<h4>$num $title $label</h4>";
-if ($num >= 0){ // if there are records, show them
+echo "<h4>$num $label</h4>";
+if ($num >= 0) { // if there are records, show them
 ?>
-	<table class="<?php echo $table_style_2;?>" style='width: auto;'>
-	<tr>
-		<th>Name</th>
-<!-- <th>Description</th>  -->
-		<th>Edit</th>
-		<th>Delete</th>
-	</tr>
+  	<table class="<?php echo $table_style_2;?>" style='width: auto;'>
+  	<tr>
+  		<th>Name</th>
+  		<th>Edit</th>
+  		<th>Delete</th>
+  	</tr>
 <?php
-	foreach ( $site_calls as $call ) {
-		$type_id = $call->type_id;
-		$type_name = $call->type_name;
-//		$type_desc = $call->type_desc;
-		echo "<tr>\n";
-		echo "<td>$type_name</td>\n";
-//		echo "<td>$type_desc</td>\n";
-		echo "<td align='center'><a href='mod_settings.php?type=$type&type_id=$type_id&action=edit'>";
-    echo "<i class='glyphicon glyphicon-edit' title='edit'></i></a></td>\n";
-       	$deletelink = "<a href='settings.php?type_id=$type_id&action=delete&nacl=$nacl' onclick=\"return confirm('Are you sure you want to delete?')\"><i class='glyphicon glyphicon-remove-circle' title='delete'></i></a>";
-		echo "<td align='center'>$deletelink</td>\n";
-		echo "</tr>\n";
-		} // foreach
+  	foreach ( $results as $result ) {
+      $type = $result->type;
+      $type_id = $result->type_id;
+  		$type_name = $result->type_name;
+  		echo "<tr>\n";
+  		echo "<td>$type_name</td>\n";
+  		echo "<td align='center'>";
+      echo "<a href='mod_settings.php?type=$type&type_id=$type_id&action=edit'>";
+      echo "<i class='glyphicon glyphicon-edit' title='Edit'></i></a></td>\n";
+      $deletelink = "<a href='settings.php?type=$type&type_id=$type_id&action=delete&nacl=$nacl' ";
+      $deletelink = $deletelink . "onclick=\"return confirm('Are you sure you want to delete?')\">";
+      $deletelink = $deletelink . "<i class='glyphicon glyphicon-remove-circle' title='Delete'></i></a>";
+  		echo "<td align='center'>$deletelink</td>\n";
+  		echo "</tr>\n";
+  		} // foreach
 ?>
-<h5><i class="fa fa-plus"></i> <a href="dnr_add_departments.php">Add New</a></h5>
+    <h5><i class="fa fa-plus"></i> <a href="dnr_add_departments.php">Add New</a></h5>
 <?php } ?>
 </table>
 <h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
@@ -81,3 +85,5 @@ if(isset($_SESSION['user_name'])){
 }
 include("includes/footer.php");
 ?>
+</body>
+</html>
