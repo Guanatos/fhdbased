@@ -1,3 +1,5 @@
 [user]
 	name = Daniel Nuno
 	email = daniel.nuno@gmail.com
+[push]
+	default = simple

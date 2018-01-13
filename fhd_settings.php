@@ -15,6 +15,12 @@ include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
+//$db = mysqli_connect(db_host,db_user,db_password,db_name);
+//$link = mysqli_connect("localhost", "fhdbased", "t3l05ab3s", "fhdbased");
+//if (mysqli_connect_errno()) {
+//    printf("Connect failed: %s\n", mysqli_connect_error());
+//    exit();
+//}
 $encrypted_passwords = $db->get_var("SELECT option_value FROM site_options WHERE option_name = 'encrypted_passwords';");
 $encrypted_link = "";
 if ($encrypted_passwords <> 'yes') {
@@ -120,6 +126,10 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
 
 <?php
 include("includes/footer.php");
+
+/* close connection */
+mysqli_close($link);
+
 ?>
 </body>
 </html>
