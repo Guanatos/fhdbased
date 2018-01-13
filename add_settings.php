@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
 			 	// Record Not Found
 			 } else {
 			    $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
-          $db->debug();
+//          $db->debug();
 			    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
 		      <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
 		      Record Added.
