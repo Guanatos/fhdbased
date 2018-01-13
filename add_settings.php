@@ -54,13 +54,12 @@ if (isset($_POST['submit'])) {
 		   if (if_type_exist($type, $_POST['type_name'])) {
 			 	// Record Found
 			 	  $actionstatus = "<div class=\"alert alert-danger\" style=\"max-width: 250px;\">
-		      <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
 		      Record duplicated, nothing was changed.
 			    </div>";
 			 	// Record Not Found
 			 } else {
 			    $db->query("INSERT INTO site_types(type,type_name,type_email,type_location,type_phone) VALUES ('$type','$type_name',NULL,NULL,NULL);");
-					//$db->debug();
+          $db->debug();
 			    $actionstatus = "<div class=\"alert alert-success\" style=\"max-width: 250px;\">
 		      <button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>
 		      Record Added.
