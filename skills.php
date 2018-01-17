@@ -7,12 +7,13 @@ This is a generic process to manage skills
 */
 include("includes/session.php");
 include("includes/checksession.php");
+include("includes/checksessionadmin.php");
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
+include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $action = $db->escape( $_GET['action'] );
 $skill_id = $db->escape( $_GET['skill_id'] );

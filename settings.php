@@ -22,8 +22,8 @@ include("includes/ez_sql_mysqli.php");
 $label = "";
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $action = $db->escape( $_GET['action'] );
-$type = $db->escape( $_GET['type'] );
 $type_id = $db->escape( $_GET['type_id'] );
+$type = $db->escape( $_GET['type'] );
 switch ($type) {
     case 1:
       $label = 'Departments';
@@ -33,6 +33,9 @@ switch ($type) {
       break;
     case 3:
       $label = 'Devices';
+      break;
+    case 4:
+      $label = 'Skills';
       break;
 }
 ?>
