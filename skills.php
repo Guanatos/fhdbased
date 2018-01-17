@@ -1,13 +1,12 @@
 <?php
-// skills.php
+/*
+skills.php
+
+This is a generic process to manage skills
+
+*/
 include("includes/session.php");
 include("includes/checksession.php");
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Skills</title>
-<?php
 include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
@@ -15,30 +14,38 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 include("includes/functions.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-$myquery = "SELECT skill_id, skill_name, skill_desc FROM skills WHERE 1 ORDER BY skill_name;";
-$skill_id = $db->escape( $_GET['skill_id'] );
 $action = $db->escape( $_GET['action'] );
+$skill_id = $db->escape( $_GET['skill_id'] );
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Skills</title>
+</head>
+<body>
+<?php
 if ($action == 'delete'){
    $db->query("DELETE FROM skills WHERE skill_id = $skill_id;");
 }
-$site_calls = $db->get_results($myquery);
+$myquery = "SELECT skill_id, skill_name, skill_desc FROM skills WHERE 1 ORDER BY skill_name;";
+$results = $db->get_results($myquery);
+//$db->debug();
 $num = $db->num_rows;
-echo "<p><a href='fhd_settings.php'>Settings</a></p>";
 echo "<h4>$num $title Skills</h4>";
 if ($num >= 0){ // if there are records, show them
 ?>
 	<table class="<?php echo $table_style_2;?>" style='width: auto;'>
 	<tr>
-		<th>Skill Name</th>
+		<th>Skill</th>
 		<th>Description</th>
 		<th>Edit</th>
 		<th>Delete</th>
 	</tr>
 <?php
-	foreach ( $site_calls as $call ) {
-		$skill_id = $call->skill_id;
-		$skill_name = $call->skill_name;
-		$skill_desc = $call->skill_desc;
+	foreach ( $results as $result ) {
+		$skill_id   = $result->skill_id;
+		$skill_name = $result->skill_name;
+		$skill_desc = $result->skill_desc;
 		echo "<tr>\n";
 		echo "<td>$skill_name</td>\n";
 		echo "<td>$skill_desc</td>\n";
@@ -49,11 +56,14 @@ if ($num >= 0){ // if there are records, show them
 		} // foreach
 ?>
 	<h5><i class="fa fa-plus"></i> <a href="dnr_add_skills.php">Add New</a></h5>
-<?php } ?> 
-	</table>
-
+<?php } ?>
+</table>
+<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
 <?php
 if(isset($_SESSION['user_name'])){
 	echo "<h5>Current User: " . $_SESSION['user_name'] . "</h5>";
 }
 include("includes/footer.php");
+?>
+</body>
+</html>

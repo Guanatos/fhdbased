@@ -36,9 +36,6 @@ $fhddate = date_format($date, 'U')
 </head>
 <body>
 <h4>System Settings</h4>
-<!--
-<a href="fhd_settings_action.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
--->
 <a href="settings.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
 <a href="settings.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a>
 <a href="settings.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a>
@@ -62,7 +59,6 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
     $write = " <span class='label label-danger'>[".dirname($upload_path).'] directory is not writable</span>';
 }
 ?>
-
 <tr>
 	<td>Allow uploads</td>
 	<td><?php echo yesno(FHD_UPLOAD_ALLOW) . $write;?></td>
@@ -77,7 +73,6 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
 	</td>
 </tr>
 <?php } ?>
-
 <tr>
 	<td>Allow registration</td>
 	<td><?php echo yesno(ALLOW_REGISTER);?></td>
@@ -116,20 +111,16 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
 	<td>Database name</td>
 	<td><?php echo db_name;?></td>
 </tr>
-
 <tr>
 	<td>CSS theme <a href="http://bootswatch.com/" target="_blank" class="btn btn-default btn-xs">view demo's</a></td>
 	<td><?php echo css;?></td>
 </tr>
-
 </table>
-
 <?php
 include("includes/footer.php");
 
 /* close connection */
-mysqli_close($link);
-
+//mysqli_close($link);
 ?>
 </body>
 </html>
