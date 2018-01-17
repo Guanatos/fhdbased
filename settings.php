@@ -18,10 +18,9 @@ include("includes/all-nav.php");
 include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-//$actionstatus = "";
 $label = "";
-$del_query = "";
-$myquery = "";
+$sel_query = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
+$del_query = "DELETE FROM site_types WHERE type_id = $type_id;";
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $action = $db->escape( $_GET['action'] );
 $type_id = $db->escape( $_GET['type_id'] );
@@ -29,23 +28,17 @@ $type = $db->escape( $_GET['type'] );
 switch ($type) {
     case 1:
       $label = 'Departments';
-      $del_query = "DELETE FROM site_types WHERE type_id = $type_id;";
-      $myquery = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
       break;
     case 2:
       $label = 'Priorities';
-      $del_query = "DELETE FROM site_types WHERE type_id = $type_id;";
-      $myquery = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
       break;
     case 3:
       $label = 'Devices';
-      $myquery = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE $type ORDER BY type_name;";
-      $del_query = "DELETE FROM site_types WHERE type_id = $type_id;";
       break;
     case 4:
       $label = 'Skills';
+      $sel_query = "SELECT skill_id, skill_name, skill_desc FROM skills WHERE 1 ORDER BY skill_name;";
       $del_query = "DELETE FROM skills WHERE skill_id = $skill_id;";
-      $myquery = "SELECT skill_id, skill_name, skill_desc FROM skills WHERE 1 ORDER BY skill_name;";
       break;
 }
 ?>
@@ -61,7 +54,7 @@ $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_
 if ($action == 'delete'){
    $db->query($del_query);
 }
-$results = $db->get_results($myquery);
+$results = $db->get_results($sel_query);
 //$db->debug();
 $num = $db->num_rows;
 echo "<h4>$num $label</h4>";
