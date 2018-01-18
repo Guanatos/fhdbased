@@ -1,22 +1,29 @@
 <?php
+/*
+mod_skills.php
+
+This is a generic process to manage skills
+
+*/
+include("fhd_config.php");
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Edit Skills</title>
-<?php
-include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
 include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
-// <UPDATE>
+$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Edit Skills</title>
+</head>
+<body>
+<?php
 if (isset($_POST['nacl'])){
  if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
 	//authentication verified, continue.
@@ -46,31 +53,37 @@ $num = $db->get_var("SELECT count(skill_id) FROM skills WHERE skill_id LIKE '$sk
 //$db->debug();
 $nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 ?>
-<h4>Edit Type</h4>
+<h4>Edit Skill</h4>
 <?php
 echo $actionstatus;
 echo "<p><a href='fhd_settings.php'>Settings</a></p>";
-?>
-<?php if ($num > 0) {
-	$skills = $db->get_results("SELECT skill_id,skill_name,skill_desc FROM skills WHERE skill_id LIKE '$skill_id' ORDER BY skill_name;");
-	echo "<form action='' method='post' class='form-horizontal'>\n";
-	foreach ( $skills as $skill ) {
-	$skill_id = $skill->skill_id;
-	$skill_name = $skill->skill_name;
-	$skill_desc = $skill->skill_desc;
-	echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
-	echo "<tr><td>Skill Name*</td>";
-	echo "<td><input type='text' name='skill_name' value='$skill_name' required></td></tr>\n";
-	echo "<tr><td>Description*</td>\n";
-	echo "<td><textarea rows='2' name='skill_desc' required>$skill_desc</textarea></td></tr>\n";
-	echo "<tr><td colspan='2'><input type='submit' value='update' class='btn btn-primary'></td></tr>\n";
-	echo "</table>\n</form>\n";
-	} //foreach
-   } //IF
-?>
-<h5><i class="fa fa-arrow-left"></i><a href="skills.php?skill=show">Back to Skills</a></h5>
-<?php
-if(isset($_SESSION['name'])){
+if (empty($actionstatus)) {
+	if ($num > 0) {
+			$skills = $db->get_results("SELECT skill_id,skill_name,skill_desc FROM skills WHERE skill_id LIKE '$skill_id' ORDER BY skill_name;");
+			echo "<form action='' method='post' class='form-horizontal'>\n";
+			foreach ( $skills as $skill ) {
+					$skill_id = $skill->skill_id;
+					$skill_name = $skill->skill_name;
+					$skill_desc = $skill->skill_desc;
+					echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
+					echo "<tr><td>Skill Name*</td>";
+					echo "<td><input type='text' name='skill_name' value='$skill_name' required></td></tr>\n";
+					echo "<tr><td>Description*</td>\n";
+					echo "<td><textarea rows='2' name='skill_desc' required>$skill_desc</textarea></td></tr>\n";
+					echo "<tr><td colspan='2'><input type='submit' value='update' class='btn btn-primary'></td></tr>\n";
+					echo "</table>\n</form>\n";
+			} //foreach
+	  } //if num
+	else {
+		echo $actionstatus;
+	}
+} // if empty
+echo "<h5><i class='fa fa-arrow-left'></i><a href='skills.php?skill=show'>";
+echo " Back to Skills</a></h5>";
+if (isset($_SESSION['name'])) {
 	echo "<br /><p><strong>Login Name:</strong> " . $_SESSION['name'] . "</p>";
 }
 include("includes/footer.php");
+?>
+</body>
+</html>

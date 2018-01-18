@@ -10,10 +10,10 @@ This is a generic process to add settings
 
 */
 ob_start();
+include("fhd_config.php");
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
-include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
 include("includes/functions.php");
