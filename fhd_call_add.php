@@ -1,15 +1,8 @@
 <?php
+include("fhd_config.php");
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksession_ss.php");
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Ticket Details</title>
-<?php 
-include("fhd_config.php");
 include("includes/header.php");
 include("includes/all-nav.php");
 include("includes/functions.php");
@@ -17,6 +10,15 @@ include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
 $actionstatus = "";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <title>Ticket Details</title>
+</head>
+<body>
+<?php
 //<ADD>
 if (isset($_POST['nacl'])){
  if ( $_POST['nacl'] == md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;")) ) {
@@ -25,7 +27,7 @@ if (isset($_POST['nacl'])){
 	$call_date = $db->escape(strtotime($_POST['call_date']));
 	$call_first_name = $db->escape($_POST['call_first_name']);
 	$call_email = $db->escape($_POST['call_email']);
-	$call_phone = $db->escape($_POST['call_phone']);	
+	$call_phone = $db->escape($_POST['call_phone']);
 	$call_department = $db->escape($_POST['call_department']);
 	$call_request = $db->escape($_POST['call_request']);
 	$call_device = $db->escape($_POST['call_device']);
@@ -70,20 +72,24 @@ $adjdate=date('Y-m-d H:i:s');
 <table class="<?php echo $table_style_3;?>" style='width:75%;'>
 	<tr>
 	<td valign="top" style="width: 150px;">Status</td>
-	<td><select name='call_status' class="input-medium">
-	<option value='0' selected>active</option>
-	<option value='1'>closed</option>
-	</select>
+	<td>
+    <select class="form-control" name='call_status'>
+	     <option value='0' selected>Active</option>
+	     <option value='1'>Closed</option>
+	  </select>
 	</td>
 	</tr>
 
 	<tr>
 	<td>Date</td>
 	<td><!-- mktime(hour, minute, second, month, day, year) -->
-	<input type="text" name="call_date" value="<?php echo $adjdate;?>" id="datepicker" class="input-small"></td>
-	</tr>		
+	   <input type="text" name="call_date" value="<?php echo $adjdate;?>" id="datepicker" class="form-control"></td>
+	</tr>
 
-        <tr><td>Priority</td><td><select name='call_request'>
+  <tr>
+    <td>Priority</td>
+    <td>
+      <select class="form-control" name='call_request'>
         <?php $request_name = $db->get_results("select type_id,type_name from site_types where type=2 order by type_name;");
 foreach ($request_name as $request )
 {?>
@@ -93,20 +99,24 @@ foreach ($request_name as $request )
 
 	<tr>
 	<td>Name</td>
-	<td><input type="text" name="call_first_name" class="input-xlarge" required></td>
-	</tr>
-	
-	<tr>
-	<td>Email</td>
-	<td><input type="email" name="call_email" class="input-xlarge" required></td>
-	</tr>
-	
-	<tr>
-	<td>Phone</td>
-	<td><input type="text" name="call_phone" class="input-medium"></td>
+	<td>
+    <input type="text" name="call_first_name" class="form-control" placeholder="Enter your name" required></td>
 	</tr>
 
-	<tr><td>Departments</td><td><select name='call_department'>
+	<tr>
+	<td>Email</td>
+	<td>
+    <input type="email" name="call_email" class="form-control" placeholder="Enter your email" required></td>
+	</tr>
+
+	<tr>
+	<td>Phone</td>
+	<td>
+    <input type="text" name="call_phone" class="form-control" placeholder="Enter your phone number"></td>
+	</tr>
+
+	<tr><td>Departments</td><td>
+    <select class="form-control" name='call_department'>
 	<?php $call_dept = $db->get_results("select type_id,type_name from site_types where type=1 order by type_name;");
 foreach ($call_dept as $dept )
 {?>
@@ -114,7 +124,8 @@ foreach ($call_dept as $dept )
 <?php } ?>
 	</select></td></tr>
 
-	<tr><td>Device</td><td><select name='call_device'>
+	<tr><td>Device</td><td>
+    <select class="form-control" name='call_device'>
 	<?php $device_name = $db->get_results("select type_id,type_name from site_types where type=3 order by type_name;");
 foreach ($device_name as $device )
 {?>
@@ -126,13 +137,14 @@ foreach ($device_name as $device )
 		<td valign="top">Details</td>
 		<td><textarea rows="3" name="call_details" style="width: 100%"></textarea></td>
 	</tr>
-	
+
 	<tr>
 		<td valign="top">Solution</td>
 		<td><textarea rows="3" name="call_solution" style="width: 100%"></textarea></td>
 	</tr>
 
-	<tr><td>Staff</td><td><select name='call_staff'>
+	<tr><td>Staff</td><td>
+    <select class="form-control" name='call_staff'>
 	<?php $staff_name = $db->get_results("select user_id,user_name from site_users where user_level<>1 order by user_name;");
 foreach ($staff_name as $staff )
 {?>
@@ -146,10 +158,13 @@ foreach ($staff_name as $staff )
 <?php } ?>
 
 <input type='hidden' name='nacl' value='<?php echo $nacl;?>'>
-<input type="submit" value="add" class="btn btn-large btn-primary">
+<input type="submit" value="Add a ticket" class="btn btn-large btn-primary">
 </form>
 <?php
-if(isset($_SESSION['user_name'])){	
-	echo "" . $_SESSION['user_name'] . "";
+if(isset($_SESSION['user_name'])){
+	echo "<h5>Current User: " . $_SESSION['user_name'] . "</h5>";
 }
 include("includes/footer.php");
+?>
+</body>
+</html>
