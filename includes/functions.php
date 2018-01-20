@@ -151,23 +151,18 @@ function check_email_address($email) {
  return true;
 }
 
+// Yes with success button
+// No with warning button
 function yesno($value) {
-	if ($value == "yes") {
-		$value = "<span class='label label-success'>Yes</span>";
-	}else{
-		$value = "<span class='label label-default'>No</span>";
-	}
-	return $value;
+	$result = ("yes" == $value) ? "<span class='label label-success'>Yes</span>" : "<span class='label label-warning'>No</span>";
+	return $result;
 }
 
+// 1 with success button
+// 0 with warning button
 function onoff($value) {
-	if ($value == "1") {
-		$value = "<span class='label label-success'>Yes</span>";
-	}
-	if ($value == "0") {
-		$value = "<span class='label label-default'>No</span>";
-	}
-	return $value;
+	$result = ("1" == $value) ? "<span class='label label-success'>Yes</span>" : "<span class='label label-warning'>No</span>";
+	return $result;
 }
 
 function show_user_level($type) {

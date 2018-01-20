@@ -10,6 +10,7 @@ This is a generic process to list settings
 
 */
 include("fhd_config.php");
+include("includes/queries.php");
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
@@ -19,10 +20,16 @@ include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $label = "";
-$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-$action = $db->escape( $_GET['action'] );
-$type_id = $db->escape( $_GET['type_id'] );
-$type = $db->escape( $_GET['type'] );
+$db = mysqli_connect(db_host,db_user,db_password,db_name);
+if (mysqli_connect_errno()) {
+    printf("Connection failed: %s\n", mysqli_connect_error());
+    exit();
+}
+//$action = $db->escape( $_GET['action'] );
+$action = $_GET['action'];
+//$type_id = $db->escape( $_GET['type_id'] );
+//$type = $db->escape( $_GET['type'] );
+$type = $_GET['type'];
 $sel_query = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE " . $type . " ORDER BY type_name;";
 $del_query = "DELETE FROM site_types WHERE type_id = " . $type_id;
 switch ($type) {
@@ -50,12 +57,12 @@ switch ($type) {
 </head>
 <body>
 <?php
-$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
+//$nacl = md5(AUTH_KEY.$db->get_var("SELECT last_login FROM site_users WHERE user_id = $user_id;"));
 if ($action == 'delete'){
    $db->query($del_query);
 }
-$results = $db->get_results($sel_query);
-//$db->debug();
+$results = $db->query($sel_query);
+var_dump($results);
 $num = $db->num_rows;
 echo "<h4>$num $label</h4>";
 if ($num >= 0) { // if there are records, show them
@@ -71,6 +78,7 @@ if ($num >= 0) { // if there are records, show them
       $type = $result->type;
       $type_id = $result->type_id;
   		$type_name = $result->type_name;
+      var_dump($type_name);
   		echo "<tr>\n";
   		echo "<td>$type_name</td>\n";
   		echo "<td align='center'>";
@@ -83,10 +91,10 @@ if ($num >= 0) { // if there are records, show them
   		echo "</tr>\n";
   		} // foreach
 ?>
-    <h5><i class="fa fa-plus"></i> <a href="add_settings.php?type=<?php echo $type ?>">Add New</a></h5>
+    <h5><i class="fa fa-plus"></i> <a href="add_settings.php?type=<?php echo $type ?>" class = "btn btn-primary">Add New</a></h5>
 <?php } ?>
 </table>
-<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="btn btn-primary"> Back to Settings</a></h5>
 <?php
 if(isset($_SESSION['user_name'])){
 	echo "<h5>Current User: " . $_SESSION['user_name'] . "</h5>";

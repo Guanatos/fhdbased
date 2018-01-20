@@ -6,6 +6,7 @@ This is a main process to for settings
 
 */
 include("fhd_config.php");
+include("includes/queries.php");
 include("includes/session.php");
 include("includes/checksession.php");
 include("includes/checksessionadmin.php");
@@ -14,14 +15,14 @@ include("includes/all-nav.php");
 include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
-$db = new ezSQL_mysqli(db_user,db_password,db_name,db_host);
-//$db = mysqli_connect(db_host,db_user,db_password,db_name);
-//$link = mysqli_connect("localhost", "fhdbased", "t3l05ab3s", "fhdbased");
-//if (mysqli_connect_errno()) {
-//    printf("Connect failed: %s\n", mysqli_connect_error());
-//    exit();
-//}
-$encrypted_passwords = $db->get_var("SELECT option_value FROM site_options WHERE option_name = 'encrypted_passwords';");
+$db = mysqli_connect(db_host,db_user,db_password,db_name);
+//var_dump($db);
+if (mysqli_connect_errno()) {
+    printf("Connection failed: %s\n", mysqli_connect_error());
+    exit();
+}
+$encrypted_passwords = $db->query(query_encrypted);
+mysqli_close($db);
 $encrypted_link = "";
 if ($encrypted_passwords <> 'yes') {
 	$encrypted_link = " <small><a href='fhd_admin_e.php'>Encrypt Passwords</a></small>";
@@ -36,28 +37,26 @@ $fhddate = date_format($date, 'U')
 </head>
 <body>
 <h4>System Settings</h4>
-<a href="settings.php?type=1" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Departments</a>
-<a href="settings.php?type=2" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Priorities</a>
-<a href="settings.php?type=3" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Devices</a>
-<a href="skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Skills</a>
-<a href="staff_skills.php?skill=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Staff Skills</a>
-<a href="fhd_users.php?support_staff=show" class="btn btn-default btn-sm"><i class="fa fa-cog"></i> Support Staff</a>
+<a href="settings.php?type=1" class="btn btn-primary"><i class="fa fa-cog"></i> Departments</a>
+<a href="settings.php?type=2" class="btn btn-primary"><i class="fa fa-cog"></i> Priorities</a>
+<a href="settings.php?type=3" class="btn btn-primary"><i class="fa fa-cog"></i> Devices</a>
+<a href="skills.php?skill=show" class="btn btn-primary"><i class="fa fa-cog"></i> Skills</a>
+<a href="staff_skills.php?skill=show" class="btn btn-primary"><i class="fa fa-cog"></i> Staff Skills</a>
+<a href="fhd_users.php?support_staff=show" class="btn btn-primary"><i class="fa fa-cog"></i> Support Staff</a>
 <hr>
 <h4>Config Settings <small>from: fhd_config.php</small></h4>
-
 <table class="<?php echo $table_style_1;?>" style='width: auto;'>
 <tr>
 	<td>Login tries before session lockout</td>
 	<td><span class="label label-info"><?php echo LOGIN_TRIES;?></span></td>
 </tr>
-
-<?php if (FHD_UPLOAD_ALLOW == "yes") {
-
-$upload_path = 'upload/test.txt';
-$write = "";
-if ( !is_writable( dirname ( $upload_path ) ) ) {
-    $write = " <span class='label label-danger'>[".dirname($upload_path).'] directory is not writable</span>';
-}
+<?php
+if (FHD_UPLOAD_ALLOW == "yes") {
+	$upload_path = 'upload/test.txt';
+	$write = "";
+	if ( !is_writable( dirname ( $upload_path ) ) ) {
+    	$write = " <span class='label label-danger'>[".dirname($upload_path).'] directory is not writable</span>';
+		}
 ?>
 <tr>
 	<td>Allow uploads</td>
@@ -118,9 +117,6 @@ if ( !is_writable( dirname ( $upload_path ) ) ) {
 </table>
 <?php
 include("includes/footer.php");
-
-/* close connection */
-//mysqli_close($link);
 ?>
 </body>
 </html>
