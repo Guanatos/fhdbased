@@ -17,14 +17,14 @@ include("includes/checksessionadmin.php");
 include("includes/header.php");
 include("includes/all-nav.php");
 include("includes/functions.php");
-$label = "";
 $db = mysqli_connect(db_host,db_user,db_password,db_name);
 if (mysqli_connect_errno()) {
     printf("Connection failed: %s\n", mysqli_connect_error());
     exit();
 }
-$type = $_GET['type'];
+$label = "";
 $action = $_GET['action'];
+$type = $_GET['type'];
 $type_id = $_GET['type_id'];
 $sel_query = "SELECT type, type_id, type_name FROM site_types WHERE type LIKE " . $type . " ORDER BY type_name;";
 $del_query = "DELETE FROM site_types WHERE type_id = " . $type_id;
