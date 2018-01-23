@@ -16,7 +16,6 @@ include("includes/functions.php");
 include("includes/ez_sql_core.php");
 include("includes/ez_sql_mysqli.php");
 $db = mysqli_connect(db_host,db_user,db_password,db_name);
-//var_dump($db);
 if (mysqli_connect_errno()) {
     printf("Connection failed: %s\n", mysqli_connect_error());
     exit();
