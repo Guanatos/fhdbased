@@ -74,7 +74,7 @@ if (empty($actionstatus)) {
 		echo "<form action='add_settings.php' method='post' class='form-horizontal' data-parsley-validate>";
 		echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
 		echo "<tr><td>" .  $label . " Name*</td>";
-		echo "<td><input type='text' name='type_name' required></td>";
+		echo "<td><input type='text' class='form-control' name='type_name' required></td>";
 		echo "</tr></table>";
 		echo "<input type='hidden' name='label' value='$label' readonly>\n";
 		echo "<input type='hidden' name='type' value='$type' readonly>\n";

@@ -20,7 +20,7 @@ define('FHD_TIMEADJUST', '0');
 define('AUTH_KEY','change this key');
 
 /** Set how many login tries (session only)*/
-define('LOGIN_TRIES',10);
+define('LOGIN_TRIES',100);
 
 /** email address to send new ticket and registration notices FROM, etc  */
 define('FROM_EMAIL','postmaster@example.com');

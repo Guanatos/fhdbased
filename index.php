@@ -152,14 +152,14 @@ if (ALLOW_ANY_ADD == 'yes') {
 <div class="form-group">
 	<label class="col-sm-2 control-label" for="inputEmail">Email/Username</label>
 	<div class="col-sm-3">
-	<input type="text" id="inputEmail" name="user_login" placeholder="Email/Username" required>
+	<input type="text" class="form-control" id="inputEmail" name="user_login" placeholder="Email/Username" required>
 	</div>
 </div>
 
 <div class="form-group">
 	<label class="col-sm-2 control-label" for="inputPassword">Password</label>
 	<div class="col-sm-3">
-	<input type="password" id="inputPassword" name="user_password" placeholder="Password" required>
+	<input type="password" class="form-control" id="inputPassword" name="user_password" placeholder="Password" required>
 	</div>
 </div>
 
