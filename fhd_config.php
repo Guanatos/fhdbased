@@ -61,9 +61,9 @@ $allowedExts = array("jpg","jpeg","gif","png","doc","docx","wpd","xls","xlsx","p
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/cerulean/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/cosmo/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/cyborg/bootstrap.min.css');
-define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css');
+//define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/darkly/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css');
-//define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css');
+define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/litera/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css');
 //define('css', '//netdna.bootstrapcdn.com/bootswatch/3.1.1/lux/bootstrap.min.css');

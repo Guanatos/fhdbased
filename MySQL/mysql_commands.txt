@@ -4,3 +4,6 @@ show databases;
 use <dbname>;
 create database <dbname>;
 mysqli_test.php://$link = mysqli_connect("localhost", "fhdbased", "t3l05ab3s", "fhdbased");
+
+####
+INSERT INTO `fhdbased`.`site_users` (`user_id`, `user_login`, `user_password`, `user_name`, `user_address`, `user_city`, `user_state`, `user_zip`, `user_country`, `user_phone`, `user_email`, `user_email2`, `user_im_aol`, `user_im_icq`, `user_im_msn`, `user_im_yahoo`, `user_im_other`, `user_status`, `user_level`, `user_pending`, `user_date`, `last_login`, `last_ip`, `user_msg_send`, `user_msg_subject`, `user_protect_delete`, `user_protect_edit`) VALUES ('2', 'danunora', 'sun123', 'danunora', '', '', '', '', '', '', '', '', '', '', '', '', '', '0', '0', '0', '0', '0', '', '0', '', '0', '0');

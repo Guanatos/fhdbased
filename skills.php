@@ -53,17 +53,17 @@ if ($num >= 0) { // if there are records, show them
 		echo "<td>$skill_desc</td>\n";
 		echo "<td align='center'><a href='mod_skills.php?skill_id=$skill_id&action=edit'>";
 		echo "<i class='glyphicon glyphicon-edit' title='Edit'></i></a></td>\n";
-    $deletelink = "<a href='skills.php?skill_id=$skill_id&action=delete&nacl=$nacl' ";
+        $deletelink = "<a href='skills.php?skill_id=$skill_id&action=delete&nacl=$nacl' ";
 		$deletelink = $deletelink . "onclick=\"return confirm('Are you sure you want to delete?')\">";
 		$deletelink = $deletelink . "<i class='glyphicon glyphicon-remove-circle' title='delete'></i></a>";
 		echo "<td align='center'>$deletelink</td>\n";
 		echo "</tr>\n";
 		} // foreach
 ?>
-<h5><i class="fa fa-plus"></i> <a href="dnr_add_skills.php">Add New</a></h5>
+<h5><i class="fa fa-plus"></i> <a href="dnr_add_skills.php" class = "btn btn-primary">Add New</a></h5>
 <?php } ?>
 </table>
-<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="button next"> Back to Settings</a></h5>
+<h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="btn btn-primary"> Back to Settings</a></h5>
 <?php
 if(isset($_SESSION['user_name'])){
 	echo "<h5>Current User: " . $_SESSION['user_name'] . "</h5>";
