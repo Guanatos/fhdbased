@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
 <h4>Add <?php echo $label; ?></h4>
 <?php
 if (empty($actionstatus)) {
-		echo "<form action='add_settings.php' method='post' class='form-horizontal' data-parsley-validate>";
+		echo "<form action='fhd_add_settings.php' method='post' class='form-horizontal' data-parsley-validate>";
 		echo "<table class='<?php echo $table_style_2;?>' style='width: auto;'>";
 		echo "<tr><td>" .  $label . " Name*</td>";
 		echo "<td><input type='text' class='form-control' name='type_name' required></td>";

@@ -32,7 +32,7 @@ echo "<h4>$num $title Users</h4>";
 if ($num > 0){
 ?>
 <table class="<?php echo $table_style_2;?>" style='width: auto;'>
-<tr align="center">
+<tr>
 	<th>ID</th>
 	<th>Open</th>
 	<th>Login</th>

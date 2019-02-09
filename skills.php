@@ -60,7 +60,7 @@ if ($num >= 0) { // if there are records, show them
 		echo "</tr>\n";
 		} // foreach
 ?>
-<h5><i class="fa fa-plus"></i> <a href="dnr_add_skills.php" class = "btn btn-primary">Add New</a></h5>
+<h5><i class="fa fa-plus"></i> <a href="fhd_add_skills.php" class = "btn btn-primary">Add New</a></h5>
 <?php } ?>
 </table>
 <h5><i class="fa fa-arrow-left"></i><a href="fhd_settings.php" class="btn btn-primary"> Back to Settings</a></h5>

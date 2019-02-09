@@ -89,7 +89,7 @@ if ($results = $db->query($sel_query)) {
     } // while
     $results->close();
 ?>
-    <h5><i class="fa fa-plus"></i> <a href="add_settings.php?type=<?php echo $type ?>" class = "btn btn-primary">Add New</a></h5>
+<h5><i class="fa fa-plus"></i> <a href="fhd_add_settings.php?type=<?php echo $type ?>" class = "btn btn-primary">Add New</a></h5>
 <?php
 }
 $db->close();
