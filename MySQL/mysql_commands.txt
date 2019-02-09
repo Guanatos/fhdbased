@@ -1,0 +1,6 @@
+/usr/bin/mysql -u root -p
+/usr/bin/mysql -u root -p < script.sql
+show databases;
+use <dbname>;
+create database <dbname>;
+mysqli_test.php://$link = mysqli_connect("localhost", "fhdbased", "t3l05ab3s", "fhdbased");
